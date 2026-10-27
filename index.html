@@ -1,0 +1,1473 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>슛타워즈 수업 나눔</title>
+<meta name="description" content="학생주도형 탐구·성찰 농구슛 자세 수업 SHOOTARWARS 소개와 웹앱 체험">
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+/* 레이아웃: 코트 라인 위의 한 줄 읽기 폭 — 왜 → 교육과정 → 한 차시 → 직접 해 보기 → 학생 글 → 가져가기 */
+:root {
+  --bg: #f3f5fa;
+  --paper: #ffffff;
+  --ink: #15203b;
+  --muted: #5d6680;
+  --line: #d9deea;
+  --accent: #e0601e;      /* 농구공 */
+  --accent-soft: #fde8dc;
+  --star: #e9a909;        /* 별 */
+  --star-soft: #fff3cf;
+  --good: #1f8a5b; --good-soft: #dff3e9;
+  --warn: #c2421b; --warn-soft: #fbe3da;
+  --hold: #6b6f86; --hold-soft: #eceef4;
+  --court: #e9edf6;
+  --layup: #4d9a12;
+  --skin: #f1c7a3;
+  --hair: #2b211c;
+  --display: "Do Hyeon", "Noto Sans KR", "Apple SD Gothic Neo", sans-serif;
+  --body: "Noto Sans KR", "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+  --mono: "IBM Plex Mono", ui-monospace, Menlo, monospace;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #0e1529; --paper: #172038; --ink: #edf0f8; --muted: #a2abc4; --line: #2b3655;
+    --accent: #ff8446; --accent-soft: #3b2418; --star: #ffcb3d; --star-soft: #3a3115;
+    --good: #5fd09c; --good-soft: #15362a; --warn: #ff8a66; --warn-soft: #3d2019;
+    --hold: #a8adc4; --hold-soft: #252e48; --court: #1b2541; --layup: #a3e635; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #0e1529; --paper: #172038; --ink: #edf0f8; --muted: #a2abc4; --line: #2b3655;
+  --accent: #ff8446; --accent-soft: #3b2418; --star: #ffcb3d; --star-soft: #3a3115;
+  --good: #5fd09c; --good-soft: #15362a; --warn: #ff8a66; --warn-soft: #3d2019;
+  --hold: #a8adc4; --hold-soft: #252e48; --court: #1b2541; --layup: #a3e635; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--ink); font-family: var(--body); font-size: 16px; line-height: 1.75; word-break: keep-all; overflow-wrap: anywhere; }
+.wrap { max-width: 820px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); padding-block: 36px 72px; display: flex; flex-direction: column; gap: 64px; }
+h1, h2 { font-family: var(--display); font-weight: 400; margin: 0; text-wrap: balance; letter-spacing: -.01em; }
+h1 { font-size: clamp(34px, 7.4vw, 54px); line-height: 1.12; }
+h2 { font-size: clamp(26px, 5vw, 32px); line-height: 1.25; }
+h3 { font-size: 17px; margin: 0; line-height: 1.5; }
+p { margin: 0; }
+section { display: flex; flex-direction: column; gap: 20px; }
+.eyebrow { font-size: 13px; letter-spacing: .1em; font-weight: 700; color: var(--accent); }
+.lead { font-size: 18px; color: var(--muted); max-width: 62ch; }
+.muted { color: var(--muted); }
+.small { font-size: 14px; }
+.code { font-family: var(--mono); font-size: 13px; background: var(--court); padding: 1px 6px; border-radius: 6px; white-space: nowrap; }
+a { color: var(--accent); }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+/* 히어로 */
+.hero { display: grid; grid-template-columns: 1fr 300px; gap: 28px; align-items: center; }
+.hero > div { min-width: 0; display: flex; flex-direction: column; gap: 16px; }
+.hero .sub { font-family: var(--display); font-size: clamp(20px, 4vw, 25px); color: var(--accent); line-height: 1.35; }
+.byline { font-size: 14px; color: var(--muted); }
+.hero .sub2 { font-family: var(--display); font-size: clamp(20px, 4vw, 25px); line-height: 1.35; color: var(--accent); margin-top: -12px; }
+@media (max-width: 640px) { .hero { grid-template-columns: 1fr; } }
+.hero-art { width: 100%; max-width: 300px; height: auto; border-radius: 20px; box-shadow: 0 0 0 1px rgba(246, 198, 74, .22), 0 20px 40px rgba(10, 17, 38, .28); }
+.hero-art .h-main { stroke: #f4ead8; fill: #f4ead8; }
+.hero-art g.h-main { fill: none; }
+.hero-art .h-sub { stroke: #93a3cc; fill: #93a3cc; }
+.hero-art g.h-sub { fill: none; }
+.hero-art .h-tw { transform-box: fill-box; transform-origin: center; }
+@keyframes h-twinkle { 0%,100% { opacity: 1; } 50% { opacity: .4; } }
+.hero-art .t1 { animation: h-twinkle 2.8s ease-in-out infinite; }
+.hero-art .t2 { animation: h-twinkle 3.6s ease-in-out .9s infinite; }
+.hero-art .t3 { animation: h-twinkle 3.2s ease-in-out 1.7s infinite; }
+@media (max-width: 640px) { .hero-art { max-width: 300px; } }
+
+.toc { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 5; margin-inline: calc(-1 * max(16px, env(safe-area-inset-left, 0px))); margin-block: -40px; background: var(--bg); border-bottom: 1px solid var(--line); }
+body::before { content: ""; position: fixed; inset: 0 0 auto; height: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); }
+.toc-in { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; padding-block: 10px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.toc-in::-webkit-scrollbar { display: none; }
+@media (min-width: 760px) { .toc-in { flex-wrap: wrap; overflow-x: visible; } }
+.toc-label { flex: none; position: sticky; left: 0; z-index: 1; display: inline-flex; align-items: center; gap: 6px; padding: 6px 12px 6px 2px; margin-right: 2px; font-size: 13px; font-weight: 700; letter-spacing: .04em; color: var(--ink); background: var(--bg); box-shadow: -24px 0 0 var(--bg); border-right: 1.5px solid var(--line); white-space: nowrap; }
+.toc-label svg { color: var(--accent); }
+.toc a { flex: none; text-decoration: none; font-size: 14px; font-weight: 700; padding: 6px 13px; border-radius: 999px; border: 1.5px solid var(--line); color: var(--muted); background: var(--paper); white-space: nowrap; }
+.toc a.primary { border-color: var(--accent); color: var(--accent); }
+.toc a[aria-current="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+/* 휴대폰: 옆으로 밀지 않고 아래로만 읽기 */
+.toc-btn { display: none; }
+@media (max-width: 759px) {
+  .toc-btn { display: flex; align-items: center; gap: 8px; width: 100%; border: 0; background: var(--bg); color: var(--ink); font: inherit; font-size: 14px; font-weight: 700; padding-block: 11px; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); text-align: left; }
+  .toc-btn > svg:first-child { color: var(--accent); flex: none; }
+  .toc-btn .toc-cur { margin-left: auto; font-size: 13px; color: #fff; background: var(--accent); padding: 3px 11px; border-radius: 999px; white-space: nowrap; }
+  .toc-btn .chev { flex: none; color: var(--muted); transition: transform .2s; }
+  .toc.open .toc-btn .chev { transform: rotate(180deg); }
+  .toc-in { display: none; }
+  .toc.open .toc-in { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; overflow: visible; padding-top: 0; padding-bottom: 12px; }
+  .toc-label { display: none; }
+  .toc a { text-align: center; white-space: normal; }
+  .tbl-wrap { overflow: visible; border: 0; background: transparent; border-radius: 0; display: flex; flex-direction: column; }
+  .tbl-wrap table, .tbl-wrap tbody, .tbl-wrap tr, .tbl-wrap th, .tbl-wrap td { display: block; width: 100%; min-width: 0; }
+  .tbl-wrap thead { display: none; }
+  .tbl-wrap tbody { display: flex; flex-direction: column; gap: 10px; }
+  .tbl-wrap tr { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; }
+  .tbl-wrap tbody th { background: var(--court); padding: 10px 14px; border-top: 0; white-space: normal; font-size: 15px; }
+  .crit-tbl tbody th::before { content: "평가기준 "; }
+  .tbl-wrap td { border-top: 1px solid var(--line); padding: 10px 14px; }
+  .tbl-wrap td::before { content: attr(data-label); display: block; font-size: 12px; font-weight: 700; color: var(--muted); letter-spacing: .03em; margin-bottom: 2px; }
+  .seg { display: flex; }
+  .seg button { flex: 1 1 auto; }
+  .cases .seg { display: grid; grid-template-columns: 1fr 1fr; border-radius: 16px; }
+  .cases .seg button { border-radius: 12px; }
+  /* 비교표(2015↔2022, 미들슛↔레이업슛): 두 칸을 나란히 두어 한눈에 비교 */
+  .tbl-wrap table.cmp thead { display: block; }
+  .cmp thead tr { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+  .cmp thead th { display: block; border: 0; border-radius: 10px; padding: 8px 10px; text-align: center; font-size: 13px; line-height: 1.35; color: var(--ink); background: var(--court); }
+  .cmp thead th:first-child { display: none; }
+  .cmp thead th .sub-h { display: block; font-size: 11px; font-weight: 500; color: var(--muted); }
+  .ver thead th:last-child { background: var(--accent-soft); color: var(--accent); }
+  .crit-tbl thead th:nth-child(2) { background: var(--accent-soft); color: var(--accent); }
+  .crit-tbl thead th:nth-child(3) { background: color-mix(in srgb, var(--layup) 16%, var(--paper)); color: var(--layup); }
+  .tbl-wrap .cmp tr { display: grid; grid-template-columns: 1fr 1fr; }
+  .tbl-wrap .cmp tbody th { grid-column: 1 / -1; text-align: center; }
+  .tbl-wrap .cmp td { width: auto; font-size: 14px; line-height: 1.6; padding: 10px 12px; }
+  .tbl-wrap .cmp td + td { border-left: 1px solid var(--line); }
+  .tbl-wrap .cmp td::before { display: none; }
+  .tbl-wrap .cmp td .code { display: inline-block; margin-bottom: 4px; }
+  /* 연결표: 요구 → 근거 → 수업 장치 순서로 읽기 */
+  .tbl-wrap .map td[data-label="확인 근거"] { font-size: 13px; color: var(--muted); }
+  .tbl-wrap .map td[data-label="수업 장치"] { font-weight: 500; border-left: 4px solid var(--accent); }
+  .tbl-wrap .map td[data-label="수업 장치"]::before { content: "→ 수업 장치"; color: var(--accent); }
+}
+section { scroll-margin-top: calc(env(safe-area-inset-top, 0px) + 64px); }
+
+/* 한눈에 */
+.facts { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 14px; overflow: hidden; margin: 0; }
+.fact { background: var(--paper); padding: 14px 16px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.fact dt { font-size: 12px; letter-spacing: .06em; color: var(--muted); font-weight: 700; }
+.fact dd { margin: 0; font-size: 15px; }
+
+/* 이유 3가지 */
+.reasons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+@media (max-width: 680px) { .reasons { grid-template-columns: 1fr; } }
+.reason { border-top: 3px solid var(--accent); padding-top: 12px; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.reason b { font-family: var(--display); font-weight: 400; font-size: 20px; color: var(--accent); }
+.reason p { font-size: 15px; color: var(--muted); }
+.quote { border-left: 4px solid var(--star); background: var(--star-soft); padding: 14px 18px; border-radius: 0 12px 12px 0; font-size: 17px; }
+
+/* 주도성 세 갈래 */
+.agency { display: flex; flex-direction: column; border: 1px solid var(--line); border-radius: 14px; overflow: hidden; background: var(--paper); }
+.agency > div { display: grid; grid-template-columns: 11em 1fr 9em; gap: 16px; padding: 14px 18px; border-top: 1px solid var(--line); align-items: baseline; }
+.agency > div:first-child { border-top: 0; }
+.agency .head { font-size: 12px; letter-spacing: .06em; color: var(--muted); font-weight: 700; background: var(--court); padding-block: 8px; }
+.agency b { font-weight: 700; }
+.agency span { min-width: 0; font-size: 15px; }
+.agency em { font-style: normal; font-size: 14px; color: var(--accent); font-weight: 700; }
+@media (max-width: 620px) { .agency > div { grid-template-columns: 1fr; gap: 2px; } .agency .head { display: none; } }
+
+/* 표 */
+.tbl-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 14px; background: var(--paper); }
+table { border-collapse: collapse; width: 100%; min-width: 560px; font-size: 15px; }
+th, td { text-align: left; vertical-align: top; padding: 12px 14px; border-top: 1px solid var(--line); }
+thead th { border-top: 0; font-size: 12px; letter-spacing: .05em; color: var(--muted); background: var(--court); }
+tbody th { font-weight: 700; white-space: nowrap; }
+td.hi { background: var(--accent-soft); }
+.note { font-size: 14px; color: var(--muted); background: var(--court); padding: 12px 16px; border-radius: 12px; }
+
+/* 한 차시 흐름 */
+.timeline { display: grid; grid-template-columns: 10fr 30fr 5fr; border-radius: 12px; overflow: hidden; border: 1px solid var(--line); }
+.timeline > div { padding: 12px 12px; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.timeline .t-plan { background: var(--star-soft); }
+.timeline .t-do { background: var(--accent-soft); border-inline: 1px solid var(--line); }
+.timeline .t-see { background: var(--good-soft); }
+.timeline b { font-size: 15px; }
+.timeline span { font-size: 13px; color: var(--muted); line-height: 1.5; }
+@media (max-width: 560px) { .timeline { grid-template-columns: 1fr; } .timeline .t-do { border-inline: 0; border-block: 1px solid var(--line); } }
+.pds { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
+.pds li { display: grid; grid-template-columns: 74px 1fr; gap: 14px; align-items: start; }
+.pds .tag { font-family: var(--display); font-size: 18px; text-align: center; border-radius: 10px; padding: 4px 0; }
+.pds li:nth-child(1) .tag { background: var(--star-soft); color: var(--ink); }
+.pds li:nth-child(2) .tag { background: var(--accent-soft); color: var(--accent); }
+.pds li:nth-child(3) .tag { background: var(--good-soft); color: var(--good); }
+.pds li > div { min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.pds p { font-size: 15px; color: var(--muted); }
+.loop { font-size: 14px; color: var(--accent); font-weight: 700; padding-left: 88px; }
+@media (max-width: 480px) { .loop { padding-left: 0; } }
+
+.rot { display: flex; flex-direction: column; gap: 12px; background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; }
+.seg { display: inline-flex; background: var(--court); border-radius: 999px; padding: 4px; gap: 2px; flex-wrap: wrap; }
+.seg button { border: 0; background: transparent; padding: 6px 14px; border-radius: 999px; font-size: 14px; font-weight: 700; color: var(--muted); }
+.seg button[aria-selected="true"] { background: var(--paper); color: var(--ink); box-shadow: 0 1px 3px rgba(0,0,0,.12); }
+.groups { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.grp { border-radius: 12px; padding: 12px; display: flex; flex-direction: column; gap: 2px; border: 1.5px solid var(--line); transition: background .25s, border-color .25s; min-width: 0; }
+.grp .gname { font-family: var(--display); font-size: 22px; }
+.grp .role { font-size: 14px; font-weight: 700; }
+.grp .what { font-size: 13px; color: var(--muted); line-height: 1.5; }
+.grp.perf { background: var(--accent-soft); border-color: var(--accent); }
+.grp.perf .role { color: var(--accent); }
+.grp.obs { background: var(--star-soft); border-color: var(--star); }
+.grp.prac .role { color: var(--muted); }
+@media (max-width: 520px) { .groups { grid-template-columns: 1fr; } }
+
+/* 체험: 실제 앱 화면(항상 어두운 우주 코트 테마)을 그대로 옮김 */
+.try-bar { display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+.reset { border: 0; background: none; font-size: 13px; color: var(--muted); text-decoration: underline; }
+.phone { align-self: center; width: 100%; max-width: 440px; border-radius: 34px; padding: 10px; background: #0b0f1a; box-shadow: 0 18px 40px rgba(15, 23, 42, .28); }
+.app { --s950:#020617; --s900:#0f172a; --s800:#1e293b; --s700:#334155; --s600:#475569; --s500:#64748b; --s400:#94a3b8; --s300:#cbd5e1; --s200:#e2e8f0; --s100:#f1f5f9;
+  --a300:#fcd34d; --a400:#fbbf24; --a500:#f59e0b; --e300:#6ee7b7; --e400:#34d399; --e500:#10b981; --r300:#fda4af; --r400:#fb7185; --r500:#f43f5e; --sky300:#7dd3fc;
+  color-scheme: dark; position: relative; border-radius: 26px; overflow: hidden; min-height: 560px; color: var(--s100);
+  background: radial-gradient(ellipse at top, #0f172a, #020617 60%, #000);
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif; font-size: 14px; line-height: 1.5; padding: 14px 14px 18px; display: flex; flex-direction: column; gap: 12px; }
+.app * { box-sizing: border-box; }
+.app button { cursor: pointer; font-family: inherit; }
+.app svg.i { width: 14px; height: 14px; flex: none; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.app svg.i.fill { fill: currentColor; }
+.app .brand { display: flex; align-items: center; justify-content: space-between; padding-bottom: 10px; border-bottom: 1px solid var(--s800); }
+.app .brand b { font-size: 13px; font-weight: 900; color: var(--a300); letter-spacing: -.01em; }
+.app .brand span { font-size: 10px; color: var(--s500); }
+.app .row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+.app .between { display: flex; align-items: center; justify-content: space-between; gap: 8px; flex-wrap: wrap; }
+.app .xs { font-size: 12px; } .app .xxs { font-size: 11px; } .app .tiny { font-size: 10px; }
+.app .muted { color: var(--s400); } .app .dim { color: var(--s500); }
+.app .chip { font-size: 12px; font-weight: 700; padding: 2px 8px; border-radius: 6px; }
+.app .chip.sky { color: var(--sky300); background: rgba(14,165,233,.1); border: 1px solid rgba(14,165,233,.2); }
+.app .chip.amber { color: var(--a300); background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.3); }
+.app .chip.slate { color: var(--s300); background: var(--s800); }
+.app .chip.white { color: #fff; background: var(--s800); }
+.app .bar { display: flex; align-items: center; justify-content: space-between; padding: 8px 12px; border-radius: 12px; background: rgba(15,23,42,.9); border: 1px solid var(--s800); font-size: 12px; gap: 6px; }
+.app .bar .cal { color: var(--a400); }
+.app .sess { font-weight: 900; color: var(--a300); background: rgba(251,191,36,.1); padding: 1px 8px; border-radius: 6px; border: 1px solid rgba(251,191,36,.2); }
+.app .shots { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.app .shot { padding: 11px 10px; border-radius: 12px; border: 2px solid var(--s800); background: var(--s900); color: var(--s400); font-weight: 800; font-size: 14px; }
+.app .shot.on-mid { background: var(--a400); border-color: var(--a300); color: var(--s950); box-shadow: 0 4px 10px rgba(251,191,36,.2); }
+.app .shot:disabled { opacity: .55; cursor: not-allowed; }
+.app .card { background: rgba(15,23,42,.8); border: 1px solid var(--s800); border-radius: 16px; padding: 16px 14px; display: flex; flex-direction: column; gap: 18px; box-shadow: 0 16px 30px rgba(0,0,0,.35); }
+.app .sec { display: flex; flex-direction: column; gap: 10px; }
+.app .sec + .sec { padding-top: 12px; border-top: 1px solid rgba(30,41,59,.8); }
+.app .lbl { font-size: 12px; font-weight: 800; color: var(--s300); display: flex; align-items: center; gap: 6px; }
+.app .lbl .dot { width: 11px; height: 11px; border-radius: 50%; background: var(--a400); }
+.app .crit { padding: 12px; border-radius: 12px; background: rgba(2,6,23,.7); border: 1px solid rgba(30,41,59,.9); display: flex; flex-direction: column; gap: 8px; }
+.app .crit .num { width: 20px; height: 20px; border-radius: 50%; background: var(--s800); color: var(--s300); display: inline-flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 800; flex: none; }
+.app .crit .nm { font-size: 12px; font-weight: 700; color: #fff; }
+.app .crit p { margin: 0; font-size: 12px; color: var(--s400); padding-left: 28px; line-height: 1.6; }
+.app .tg { display: flex; gap: 6px; padding-left: 28px; }
+.app .tg button { display: inline-flex; align-items: center; gap: 4px; padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; background: var(--s900); color: var(--s400); border: 1px solid var(--s800); }
+.app .tg button.good.on { background: var(--e500); color: #fff; border-color: var(--e500); box-shadow: 0 2px 6px rgba(16,185,129,.2); }
+.app .tg button.bad.on { background: var(--r500); color: #fff; border-color: var(--r500); box-shadow: 0 2px 6px rgba(244,63,94,.2); }
+.app .stars3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.app .stars3 button { padding: 10px 4px; border-radius: 12px; border: 1px solid var(--s800); background: rgba(2,6,23,.6); display: flex; flex-direction: column; align-items: center; gap: 5px; color: var(--s500); }
+.app .stars3 button .ss { display: flex; gap: 2px; }
+.app .stars3 button .ss svg { width: 16px; height: 16px; }
+.app .stars3 button span { font-size: 11px; font-weight: 700; color: var(--s400); }
+.app .stars3 button.on { background: rgba(245,158,11,.15); border-color: var(--a400); color: var(--a400); box-shadow: 0 6px 14px rgba(245,158,11,.1); }
+.app .stars3 button.on span { color: var(--a300); }
+.app .ex { padding: 12px; border-radius: 12px; background: rgba(2,6,23,.8); border: 1px solid rgba(30,41,59,.9); display: flex; flex-direction: column; gap: 6px; }
+.app .ex .t { font-size: 12px; font-weight: 700; color: var(--a300); display: flex; align-items: center; gap: 5px; }
+.app .ex .tag { font-size: 10px; color: var(--s400); background: var(--s900); padding: 1px 6px; border-radius: 4px; border: 1px solid var(--s800); }
+.app .ex .it { display: flex; gap: 6px; padding: 5px 9px; border-radius: 8px; background: rgba(15,23,42,.7); border: 1px solid rgba(30,41,59,.7); color: var(--s300); font-size: 11px; line-height: 1.6; user-select: none; }
+.app .ex .it b { color: var(--a400); }
+.app textarea { width: 100%; min-height: 84px; padding: 10px; border-radius: 12px; background: var(--s950); border: 1px solid var(--s800); color: #fff; font: inherit; font-size: 14px; resize: vertical; }
+.app textarea::placeholder { color: var(--s600); }
+.app textarea:focus { outline: none; border-color: var(--a400); }
+.app .clean { display: flex; justify-content: space-between; gap: 6px; flex-wrap: wrap; font-size: 11px; padding: 0 4px; }
+.app .clean .ok { color: rgba(52,211,153,.9); font-weight: 600; display: inline-flex; align-items: center; gap: 5px; }
+.app .primary { width: 100%; padding: 14px 10px; border-radius: 12px; border: 0; background: var(--a400); color: var(--s950); font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 18px rgba(251,191,36,.2); }
+.app .primary:hover { background: var(--a300); }
+.app .ghostbtn { width: 100%; padding: 12px 10px; border-radius: 12px; background: var(--s800); border: 1px solid var(--s700); color: var(--s200); font-weight: 700; font-size: 14px; }
+.app .warn { position: relative; border: 2px solid rgba(244,63,94,.6); background: var(--s900); border-radius: 22px; padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+.app .warn h4 { margin: 0; font-size: 15px; font-weight: 800; color: #fff; }
+.app .warn .msg { padding: 12px; border-radius: 14px; background: rgba(76,5,25,.4); border: 1px solid rgba(244,63,94,.3); color: #fecdd3; font-size: 13px; font-weight: 600; }
+.app .warn .pledge { padding: 10px; border-radius: 12px; background: rgba(2,6,23,.6); border: 1px solid var(--s800); font-size: 11px; color: var(--s400); line-height: 1.6; }
+.app .warn button { padding: 12px; border: 0; border-radius: 12px; background: linear-gradient(90deg, var(--a500), #f97316); color: var(--s950); font-weight: 900; }
+.app .done { text-align: center; padding: 30px 6px 10px; display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.app .done .ic { width: 64px; height: 64px; border-radius: 24px; background: rgba(251,191,36,.2); border: 1px solid rgba(251,191,36,.4); color: var(--a400); display: grid; place-items: center; }
+.app .done .ic svg { width: 32px; height: 32px; }
+.app .done h3 { margin: 0; font-size: 20px; font-weight: 800; color: #fff; line-height: 1.4; }
+.app .done p { margin: 0; font-size: 13px; color: var(--s300); line-height: 1.7; }
+.app .done strong { color: var(--a300); } .app .done em { font-style: normal; font-weight: 700; color: var(--a400); }
+.app .done .btns { width: 100%; display: flex; flex-direction: column; gap: 8px; margin-top: 12px; }
+.app .q { padding: 12px; border-radius: 12px; background: var(--a400); color: var(--s950); border: 1px solid var(--a300); display: flex; gap: 10px; align-items: flex-start; }
+.app .q .qi { width: 30px; height: 30px; border-radius: 8px; background: var(--s950); color: var(--a300); display: grid; place-items: center; flex: none; }
+.app .q .qt { font-size: 10px; font-weight: 900; background: var(--s950); color: var(--a300); padding: 1px 7px; border-radius: 4px; margin-right: 6px; }
+.app .q b { font-size: 13px; font-weight: 800; }
+.app .h3 { font-size: 15px; font-weight: 700; color: #fff; display: flex; align-items: center; gap: 6px; }
+.app .fb { padding: 16px 14px; border-radius: 16px; background: rgba(15,23,42,.8); border: 1px solid var(--s800); display: flex; flex-direction: column; gap: 10px; }
+.app .fb.teacher { background: linear-gradient(135deg, rgba(76,5,25,.2), rgba(15,23,42,.8)); border-color: rgba(159,18,57,.5); }
+.app .fb.new { border-color: rgba(251,191,36,.6); box-shadow: 0 0 0 1px rgba(251,191,36,.25); }
+.app .fb .s { padding: 1px 7px; border-radius: 6px; background: rgba(251,191,36,.2); color: var(--a300); border: 1px solid rgba(251,191,36,.3); font-size: 10px; font-weight: 800; }
+.app .fb .who { font-size: 11px; font-weight: 700; padding: 1px 7px; border-radius: 4px; background: var(--s800); color: var(--s300); }
+.app .fb .who.t { background: var(--r500); color: #fff; font-weight: 800; }
+.app .fb .rate { display: flex; gap: 1px; color: var(--s700); }
+.app .fb .rate svg { width: 16px; height: 16px; }
+.app .fb .rate .on { color: var(--a400); }
+.app .cg { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; }
+.app .cg div { display: flex; justify-content: space-between; gap: 4px; padding: 3px 7px; border-radius: 4px; font-size: 11px; border: 1px solid; min-width: 0; }
+.app .cg div span:first-child { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.app .cg div b { flex: none; }
+.app .cg .g { background: rgba(2,44,34,.4); border-color: rgba(6,95,70,.6); color: var(--e300); }
+.app .cg .b { background: rgba(69,26,3,.4); border-color: rgba(146,64,14,.6); color: var(--a300); }
+.app .fb .cm { margin: 0; font-size: 13px; color: var(--s200); background: rgba(2,6,23,.6); padding: 11px; border-radius: 12px; border: 1px solid rgba(30,41,59,.8); line-height: 1.65; }
+.app .fb .foot { display: flex; align-items: center; justify-content: space-between; gap: 6px; flex-wrap: wrap; padding-top: 8px; border-top: 1px solid rgba(30,41,59,.6); }
+.app .rw { display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; font-size: 12px; font-weight: 700; padding: 6px 11px; border-radius: 12px; border: 0; background: var(--a500); color: var(--s950); box-shadow: 0 4px 10px rgba(245,158,11,.1); }
+.app .rw.done { background: rgba(251,191,36,.1); color: var(--a300); border: 1px solid rgba(251,191,36,.3); box-shadow: none; }
+.app .ai { padding: 16px 14px; border-radius: 16px; background: linear-gradient(135deg, #0f172a, rgba(30,27,75,.3), #0f172a); border: 1px solid var(--s800); display: flex; flex-direction: column; gap: 12px; box-shadow: 0 16px 30px rgba(0,0,0,.35); }
+.app .ai .bot { width: 32px; height: 32px; border-radius: 12px; background: rgba(251,191,36,.2); border: 1px solid rgba(251,191,36,.4); color: var(--a300); display: grid; place-items: center; flex: none; }
+.app .ai .req { display: inline-flex; align-items: center; gap: 5px; padding: 6px 11px; border-radius: 12px; border: 0; font-size: 12px; font-weight: 700; background: var(--a400); color: var(--s950); }
+.app .ai .coach { padding: 9px 10px; border-radius: 12px; background: rgba(2,6,23,.6); border: 1px solid var(--s800); font-size: 11px; color: var(--s300); line-height: 1.6; }
+.app .ai .coach strong { color: var(--a300); }
+.app .spin { width: 38px; height: 38px; border: 2px solid var(--a400); border-top-color: transparent; border-radius: 50%; margin: 18px auto 8px; animation: spin 1s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+.app .grade { padding: 10px 12px; border-radius: 12px; border: 1px solid; display: flex; justify-content: space-between; align-items: center; font-size: 12px; font-weight: 700; }
+.app .grade.g { background: rgba(2,44,34,.4); border-color: rgba(6,95,70,.7); color: var(--e300); }
+.app .grade.m { background: rgba(69,26,3,.4); border-color: rgba(146,64,14,.7); color: var(--a300); }
+.app .grade.l { background: rgba(76,5,25,.4); border-color: rgba(159,18,57,.7); color: var(--r300); }
+.app .grade span:last-child { font-weight: 800; padding: 1px 9px; border-radius: 6px; background: rgba(2,6,23,.8); border: 1px solid currentColor; }
+.app .box { padding: 12px; border-radius: 12px; background: rgba(2,6,23,.7); border: 1px solid var(--s800); font-size: 12px; color: var(--s200); line-height: 1.65; }
+.app .box b { display: block; color: var(--s100); margin-bottom: 3px; }
+.app .mx { padding: 10px; border-radius: 12px; background: var(--s950); border: 1px solid rgba(30,41,59,.8); font-size: 12px; display: flex; flex-direction: column; gap: 4px; }
+.app .mx .st { font-size: 10px; font-weight: 700; padding: 1px 7px; border-radius: 4px; }
+.app .mx .st.g { background: rgba(6,78,59,.6); color: var(--e300); }
+.app .mx .st.b { background: rgba(136,19,55,.6); color: var(--r300); }
+.app .mx .st.h { background: var(--s800); color: var(--s400); }
+.app .mx p { margin: 0; font-size: 11px; color: var(--s400); line-height: 1.6; }
+.app .lst { padding: 11px 12px; border-radius: 12px; font-size: 12px; color: var(--s300); }
+.app .lst p { margin: 0 0 5px; font-weight: 700; display: flex; align-items: center; gap: 5px; }
+.app .lst ul { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+.app .lst.g { background: rgba(2,44,34,.2); border: 1px solid rgba(6,78,59,.5); } .app .lst.g p { color: var(--e400); }
+.app .lst.b { background: rgba(76,5,25,.2); border: 1px solid rgba(136,19,55,.5); } .app .lst.b p { color: var(--r400); }
+.app .lst.d { background: rgba(69,26,3,.2); border: 1px solid rgba(120,53,15,.5); } .app .lst.d p { color: var(--a300); }
+.try-hint { font-size: 14px; color: var(--muted); text-align: center; max-width: 52ch; align-self: center; }
+.try-hint b { color: var(--accent); }
+@media (max-width: 420px) { .phone { padding: 6px; border-radius: 26px; } .app { border-radius: 21px; padding: 12px 10px 16px; } }
+
+.mode-tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+@media (max-width: 640px) { .mode-tabs { grid-template-columns: 1fr 1fr; } }
+.mt { display: flex; flex-direction: column; align-items: flex-start; gap: 2px; text-align: left; padding: 10px 12px; border-radius: 14px; border: 1.5px solid var(--line); background: var(--paper); color: var(--ink); min-width: 0; }
+.mt span { font-size: 12px; font-weight: 700; color: var(--muted); display: inline-flex; align-items: center; gap: 6px; }
+.mt span::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--dot); flex: none; }
+.mt b { font-size: 15px; line-height: 1.35; }
+.mt.sky { --dot: #38bdf8; } .mt.amber { --dot: #f59e0b; } .mt.indigo { --dot: #818cf8; } .mt.rose { --dot: #fb7185; }
+.mt[aria-selected="true"] { border-color: var(--dot); box-shadow: inset 0 0 0 1.5px var(--dot); }
+.reset { align-self: flex-end; margin-top: -10px; }
+.app .sky-tag { color: var(--sky300); background: rgba(56,189,248,.1); border: 1px solid rgba(56,189,248,.3); }
+.app .indigo-tag { color: #a5b4fc; background: rgba(129,140,248,.1); border: 1px solid rgba(129,140,248,.2); }
+.app .rose-tag { color: var(--r300); background: rgba(251,113,133,.1); border: 1px solid rgba(251,113,133,.2); }
+.app .modetag { display: inline-flex; align-items: center; gap: 5px; padding: 3px 10px; border-radius: 999px; font-size: 12px; font-weight: 700; align-self: flex-start; }
+.app .ttl { font-size: 19px; font-weight: 800; color: #fff; margin: 0; line-height: 1.35; }
+.app .seg2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.app .shot.on-lay { background: var(--r500); border-color: var(--r400); color: #fff; box-shadow: 0 4px 10px rgba(244,63,94,.2); }
+.app .lbl .dot.lay { background: var(--r500); }
+.app .cg .n { background: rgba(2,6,23,.4); border-color: var(--s800); color: var(--s500); }
+.app .ans { display: flex; flex-direction: column; gap: 8px; padding: 12px; border-radius: 12px; background: var(--s900); border: 1px solid rgba(251,191,36,.3); }
+.app .okmsg { padding: 10px 12px; border-radius: 12px; background: rgba(2,44,34,.6); border: 1px solid rgba(16,185,129,.5); color: #a7f3d0; font-size: 12px; font-weight: 600; display: flex; gap: 6px; align-items: center; }
+.app .errmsg { padding: 10px 12px; border-radius: 12px; background: rgba(76,5,25,.6); border: 1px solid rgba(244,63,94,.5); color: #fecdd3; font-size: 12px; font-weight: 600; }
+.app .empty { padding: 22px 12px; text-align: center; border-radius: 16px; border: 1px dashed var(--s800); background: rgba(15,23,42,.5); color: var(--s400); font-size: 12px; display: flex; flex-direction: column; gap: 10px; align-items: center; }
+.app .smallbtn { padding: 7px 12px; border-radius: 12px; border: 0; background: var(--a400); color: var(--s950); font-weight: 800; font-size: 12px; }
+.app .linkbtn { padding: 6px 10px; border-radius: 12px; background: var(--s900); border: 1px solid var(--s800); color: var(--s400); font-size: 12px; display: inline-flex; align-items: center; gap: 5px; }
+/* 학급별빛현황 */
+.app .board { padding: 14px 12px; border-radius: 16px; background: linear-gradient(180deg, rgba(15,23,42,.95), rgba(15,23,42,.85), #020617); border: 1px solid rgba(245,158,11,.2); display: flex; flex-direction: column; gap: 10px; }
+.app .tro { width: 32px; height: 32px; border-radius: 8px; background: rgba(251,191,36,.2); border: 1px solid rgba(251,191,36,.4); color: var(--a300); display: grid; place-items: center; flex: none; }
+.app .live { font-size: 10px; font-weight: 700; color: var(--a300); background: rgba(251,191,36,.15); border: 1px solid rgba(251,191,36,.3); padding: 1px 8px; border-radius: 999px; }
+.app .cls { text-align: left; width: 100%; padding: 13px; border-radius: 12px; border: 1px solid var(--s800); background: rgba(2,6,23,.7); color: inherit; display: flex; flex-direction: column; gap: 8px; }
+.app .cls.first { border-color: rgba(251,191,36,.4); background: rgba(15,23,42,.9); box-shadow: 0 6px 14px rgba(245,158,11,.1); }
+.app .cls.mine { box-shadow: 0 0 0 1.5px rgba(129,140,248,.6); }
+.app .rk { width: 30px; height: 30px; border-radius: 8px; display: grid; place-items: center; font-size: 12px; font-weight: 900; flex: none; background: var(--s800); color: var(--s300); border: 1px solid var(--s700); }
+.app .rk.r1 { background: linear-gradient(135deg, var(--a300), var(--a500)); color: var(--s950); border: 0; }
+.app .rk.r2 { background: linear-gradient(135deg, var(--s200), var(--s400)); color: var(--s950); border: 0; }
+.app .rk.r3 { background: linear-gradient(135deg, #d97706, #92400e); color: #fef3c7; border: 0; }
+.app .cls h4 { margin: 0; font-size: 14px; font-weight: 800; color: #fff; }
+.app .big { font-size: 18px; font-weight: 900; color: var(--a300); }
+.app .prog { height: 6px; border-radius: 99px; background: rgba(30,41,59,.8); overflow: hidden; }
+.app .prog i { display: block; height: 100%; border-radius: 99px; background: rgba(251,191,36,.8); transition: width .4s; }
+.app .cls.first .prog i { background: linear-gradient(90deg, var(--a400), #fde047); }
+.app .cls .foot2 { display: flex; justify-content: space-between; padding-top: 7px; border-top: 1px solid rgba(30,41,59,.8); font-size: 11px; color: var(--s400); }
+.app .cls .foot2 b { color: var(--a400); display: inline-flex; align-items: center; gap: 2px; }
+.app .chead { padding: 12px; border-radius: 16px; background: rgba(15,23,42,.9); border: 1px solid var(--s800); display: flex; flex-direction: column; gap: 8px; }
+.app .srch { position: relative; }
+.app .srch svg { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--s500); }
+.app .srch input { width: 100%; padding: 8px 10px 8px 32px; border-radius: 12px; background: rgba(15,23,42,.9); border: 1px solid var(--s800); color: #fff; font: inherit; font-size: 12px; }
+.app .srch input:focus { outline: none; border-color: var(--a400); }
+.app .sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.app .stu { text-align: left; padding: 9px; border-radius: 12px; border: 1px solid var(--s800); background: rgba(15,23,42,.85); color: inherit; display: flex; flex-direction: column; gap: 6px; min-width: 0; }
+.app .stu:hover { border-color: rgba(251,191,36,.7); }
+.app .stu.hl { border-color: rgba(129,140,248,.7); }
+.app .stu .no { width: 20px; height: 20px; border-radius: 6px; background: var(--s800); color: var(--s300); font-size: 10px; font-weight: 900; display: grid; place-items: center; border: 1px solid var(--s700); flex: none; }
+.app .stu .nm { font-size: 13px; font-weight: 700; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; min-width: 0; }
+.app .stu .pill { display: inline-flex; align-items: center; gap: 2px; padding: 1px 6px; border-radius: 6px; background: rgba(251,191,36,.15); border: 1px solid rgba(251,191,36,.3); color: var(--a300); font-size: 12px; font-weight: 900; flex: none; }
+.app .stu .pill svg { width: 11px; height: 11px; color: var(--a400); }
+.app .stu .meta { display: flex; justify-content: space-between; font-size: 10px; color: var(--s400); padding-top: 4px; border-top: 1px solid rgba(30,41,59,.6); }
+.app .stu .meta span:last-child { color: rgba(251,191,36,.8); }
+.app .sheet { position: absolute; inset: 0; z-index: 3; background: #020617; padding: 14px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
+.app .tri { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+.app .tri div { padding: 8px 4px; border-radius: 12px; background: var(--s900); border: 1px solid var(--s800); text-align: center; }
+.app .tri span { display: block; font-size: 10px; color: var(--s400); }
+.app .tri strong { font-size: 14px; font-weight: 800; }
+/* 관제센터 */
+.app .ttabs { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 5px; border-radius: 16px; background: rgba(15,23,42,.9); border: 1px solid var(--s800); }
+.app .ttabs button { padding: 9px 6px; border-radius: 12px; border: 0; background: transparent; color: var(--s400); font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; justify-content: center; gap: 5px; }
+.app .ttabs button.q { color: rgba(252,211,77,.8); }
+.app .ttabs button.on { background: var(--r500); color: #fff; box-shadow: 0 4px 10px rgba(244,63,94,.2); }
+.app .ttabs button.q.on { background: var(--a400); color: var(--s950); font-weight: 800; }
+.app .ttabs button.wide { grid-column: span 2; }
+.app .tcard { padding: 14px 12px; border-radius: 16px; background: rgba(15,23,42,.8); border: 1px solid var(--s800); display: flex; flex-direction: column; gap: 12px; }
+.app .tnote { padding: 10px 12px; border-radius: 12px; background: rgba(2,6,23,.6); border: 1px solid var(--s800); font-size: 11px; color: var(--s300); line-height: 1.65; }
+.app .tnote strong { color: var(--a300); }
+.app .sess-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 5px; }
+.app .sess-grid button { padding: 7px 0; border-radius: 8px; border: 1px solid var(--s800); background: var(--s950); color: var(--s400); font-size: 12px; font-weight: 700; position: relative; }
+.app .sess-grid button.sel { border-color: var(--a400); color: var(--a300); background: rgba(251,191,36,.1); }
+.app .sess-grid button.cur::after { content: "★"; position: absolute; top: -6px; right: -3px; font-size: 10px; color: var(--a400); }
+.app .curtag { display: inline-flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 700; color: var(--a300); background: rgba(251,191,36,.1); border: 1px solid rgba(251,191,36,.3); padding: 4px 10px; border-radius: 999px; align-self: flex-start; }
+.app .curtag i { width: 6px; height: 6px; border-radius: 50%; background: var(--a400); animation: blink 1.4s ease-in-out infinite; }
+@keyframes blink { 50% { opacity: .3; } }
+.app .tbtn { align-self: flex-start; padding: 5px 11px; border-radius: 12px; background: var(--s950); border: 1px solid var(--s700); color: var(--s300); font-size: 11px; font-weight: 700; }
+.app .savebtn { padding: 7px 14px; border-radius: 12px; border: 0; background: var(--a400); color: var(--s950); font-weight: 800; font-size: 12px; align-self: flex-end; }
+.app .alist { display: flex; flex-direction: column; gap: 6px; }
+.app .arow { padding: 9px 10px; border-radius: 10px; background: var(--s950); border: 1px solid rgba(30,41,59,.8); font-size: 12px; color: var(--s200); line-height: 1.55; }
+.app .arow b { color: var(--e400); margin-right: 6px; }
+.app .arow.new { border-color: rgba(52,211,153,.5); }
+.app .miss { padding: 10px; border-radius: 10px; background: rgba(76,5,25,.25); border: 1px solid rgba(136,19,55,.5); font-size: 12px; color: var(--r300); line-height: 1.6; }
+.app .field { display: flex; flex-direction: column; gap: 6px; }
+.app .field > span { font-size: 12px; font-weight: 700; color: var(--s300); }
+.app select { width: 100%; padding: 9px 10px; border-radius: 12px; background: var(--s950); border: 1px solid var(--s700); color: #fff; font: inherit; font-size: 13px; }
+.app .static { padding: 9px 10px; border-radius: 12px; background: var(--s950); border: 1px solid var(--s800); color: var(--s300); font-size: 13px; }
+.app .tg3 { display: flex; gap: 6px; padding-left: 28px; }
+.app .rosebtn { width: 100%; padding: 13px 10px; border-radius: 12px; border: 0; background: var(--r500); color: #fff; font-weight: 900; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 8px 18px rgba(244,63,94,.2); }
+.app .closed { padding: 18px 12px; border-radius: 16px; border: 1px dashed var(--s700); background: rgba(15,23,42,.6); color: var(--s400); font-size: 12px; line-height: 1.7; text-align: center; }
+.app .closed b { color: var(--s200); }
+
+/* 네 화면 */
+.modes { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+@media (max-width: 600px) { .modes { grid-template-columns: 1fr; } }
+/* 실제 앱 첫 화면의 모드 카드와 같은 모양 (앱처럼 항상 어두운 카드) */
+.mode { --c: #fbbf24; --tagbg: rgba(251,191,36,.1); --tagbd: rgba(251,191,36,.3); --tagfg: #fcd34d; --bd: rgba(245,158,11,.4); --glow: rgba(245,158,11,.22);
+  position: relative; overflow: hidden; text-decoration: none; color: #fff; background: #0f172a; border: 1px solid var(--bd); border-radius: 16px; padding: 20px 20px 18px; display: flex; flex-direction: column; gap: 8px; min-width: 0; transition: transform .2s, border-color .2s, box-shadow .2s; }
+.mode::before { content: ""; position: absolute; top: -90px; right: -90px; width: 200px; height: 200px; border-radius: 50%; background: radial-gradient(circle, var(--glow), transparent 70%); pointer-events: none; transition: transform .5s; }
+.mode.sky { --c: #38bdf8; --tagbg: rgba(56,189,248,.1); --tagbd: rgba(56,189,248,.3); --tagfg: #7dd3fc; --bd: rgba(14,165,233,.4); --glow: rgba(14,165,233,.22); }
+.mode.indigo { --c: #818cf8; --tagbg: rgba(129,140,248,.1); --tagbd: rgba(129,140,248,.3); --tagfg: #a5b4fc; --bd: rgba(99,102,241,.4); --glow: rgba(99,102,241,.22); }
+.mode.rose { --c: #fb7185; --tagbg: rgba(251,113,133,.1); --tagbd: rgba(251,113,133,.3); --tagfg: #fda4af; --bd: rgba(244,63,94,.4); --glow: rgba(244,63,94,.22); }
+.mode .mhead { position: relative; display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px; }
+.mode .who-tag { display: inline-flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 8px; color: var(--tagfg); background: var(--tagbg); border: 1px solid var(--tagbd); }
+.mode .arw { width: 34px; height: 34px; border-radius: 12px; background: rgba(2,6,23,.8); border: 1px solid #1e293b; color: #94a3b8; display: grid; place-items: center; transition: color .2s, transform .2s; }
+.mode .mn { position: relative; font-family: var(--body); font-weight: 700; font-size: 21px; color: #fff; transition: color .2s; }
+.mode p { position: relative; font-size: 14px; color: #94a3b8; line-height: 1.65; }
+.devices { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; }
+@media (max-width: 600px) { .devices { grid-template-columns: 1fr; } }
+.devices div { display: flex; flex-direction: column; gap: 4px; min-width: 0; }
+.devices p { font-size: 15px; color: var(--muted); }
+
+/* 학생 글 */
+.cases { display: flex; flex-direction: column; gap: 14px; }
+.case-panel { background: var(--paper); border: 1px solid var(--line); border-radius: 14px; padding: 16px; display: flex; flex-direction: column; gap: 12px; }
+.say { position: relative; background: var(--court); border-radius: 12px; padding: 12px 14px 12px 16px; font-size: 15px; }
+.say .shot { display: block; font-size: 12px; font-weight: 700; color: var(--accent); margin-top: 4px; }
+.say .shot.layup { color: var(--layup); }
+.read { font-size: 15px; }
+.read b { color: var(--accent); }
+.tl { display: flex; flex-direction: column; gap: 0; border-left: 3px solid var(--accent); margin-left: 6px; }
+.tl div { padding: 6px 0 12px 16px; position: relative; display: flex; flex-direction: column; gap: 2px; }
+.tl div::before { content: ""; position: absolute; left: -9px; top: 12px; width: 13px; height: 13px; border-radius: 50%; background: var(--paper); border: 3px solid var(--accent); }
+.tl .when { font-size: 12px; font-weight: 700; color: var(--muted); }
+.tl p { font-size: 15px; }
+
+/* 한계 */
+.qa { display: flex; flex-direction: column; gap: 8px; }
+summary::marker { color: var(--accent); }
+.limits { margin: 0; padding-left: 1.2em; display: flex; flex-direction: column; gap: 8px; }
+.limits li { font-size: 15px; }
+.limits b { font-weight: 700; }
+
+/* 가져가기 */
+.take { background: var(--ink); color: var(--bg); border-radius: 18px; padding: 24px 20px; display: flex; flex-direction: column; gap: 16px; }
+.take h2 { color: var(--bg); }
+.take ol { margin: 0; padding-left: 1.3em; display: flex; flex-direction: column; gap: 10px; }
+.take li { font-size: 16px; }
+.take li span { display: block; font-size: 14px; opacity: .75; }
+.take .last { font-family: var(--display); font-size: 22px; color: var(--star); line-height: 1.4; }
+details { background: var(--paper); border: 1px solid var(--line); border-radius: 12px; padding: 12px 16px; }
+summary { font-weight: 700; cursor: pointer; }
+details p { font-size: 15px; color: var(--muted); margin-top: 8px; }
+footer { color: var(--muted); font-size: 13px; border-top: 1px solid var(--line); padding-top: 18px; display: flex; flex-direction: column; gap: 4px; }
+@media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+</style>
+
+<div class="wrap">
+
+<header class="hero">
+  <div>
+    <p class="eyebrow">경기도좋은체육수업나눔연구회 · 수업 큐레이팅</p>
+    <h1>SHOOTARWARS<br>학생주도형 탐구·성찰 농구슛 자세 수업</h1>
+    <p class="sub">남의 자세를 고쳐 주며 내 눈이 자란다</p>
+    <p class="sub2">친구에게 건네는 피드백은 나를 비추는 거울이다</p>
+    <p class="byline">갈매중학교 3학년 농구 단원 · 수업 앱 "슛타워즈: 코트 위의 역습"</p>
+  </div>
+  <svg class="hero-art" viewBox="0 0 300 270" role="img" aria-label="별이 가득한 밤하늘 같은 코트에서 한 학생이 무릎을 차올리며 레이업슛을 올리고, 친구 둘이 휴대폰으로 보낸 피드백이 별빛이 되어 날아가는 그림">
+    <defs>
+      <radialGradient id="h-sky" cx="62%" cy="22%" r="85%">
+        <stop offset="0" stop-color="#22305c"/>
+        <stop offset=".55" stop-color="#121c3a"/>
+        <stop offset="1" stop-color="#0a1126"/>
+      </radialGradient>
+      <linearGradient id="h-floor" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#1a2750"/>
+        <stop offset="1" stop-color="#0d1530"/>
+      </linearGradient>
+      <radialGradient id="h-ball" cx="38%" cy="35%" r="70%">
+        <stop offset="0" stop-color="#ffb070"/>
+        <stop offset=".6" stop-color="#ef6a24"/>
+        <stop offset="1" stop-color="#b9440f"/>
+      </radialGradient>
+      <radialGradient id="h-glow" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#ffcf5a" stop-opacity=".55"/>
+        <stop offset="1" stop-color="#ffcf5a" stop-opacity="0"/>
+      </radialGradient>
+      <linearGradient id="h-gold" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff1c2"/>
+        <stop offset=".5" stop-color="#f6c64a"/>
+        <stop offset="1" stop-color="#d99a12"/>
+      </linearGradient>
+      <path id="h-spark" stroke-linejoin="round" d="M0 -10 L2.94 -4.05 L9.51 -3.09 L4.76 1.55 L5.88 8.09 L0 5 L-5.88 8.09 L-4.76 1.55 L-9.51 -3.09 L-2.94 -4.05Z"/>
+      <clipPath id="h-clip"><rect x="0" y="0" width="300" height="270" rx="20"/></clipPath>
+    </defs>
+    <g clip-path="url(#h-clip)">
+      <rect width="300" height="270" fill="url(#h-sky)"/>
+      <!-- 먼 별 -->
+      <g fill="#e9eefc">
+        <circle cx="22" cy="28" r=".9" opacity=".7"/><circle cx="58" cy="16" r=".7" opacity=".5"/><circle cx="96" cy="40" r="1" opacity=".6"/>
+        <circle cx="132" cy="20" r=".8" opacity=".5"/><circle cx="196" cy="14" r=".9" opacity=".7"/><circle cx="234" cy="34" r=".7" opacity=".5"/>
+        <circle cx="278" cy="18" r="1" opacity=".6"/><circle cx="40" cy="70" r=".7" opacity=".45"/><circle cx="118" cy="66" r=".6" opacity=".4"/>
+        <circle cx="210" cy="96" r=".7" opacity=".45"/><circle cx="16" cy="118" r=".8" opacity=".5"/><circle cx="286" cy="120" r=".7" opacity=".4"/>
+      </g>
+      <!-- 코트 바닥 -->
+      <path d="M0 196 L300 186 L300 270 L0 270Z" fill="url(#h-floor)"/>
+      <g fill="none" stroke="#f6c64a" stroke-opacity=".38" stroke-width="1">
+        <path d="M0 196 L300 186"/>
+        <path d="M170 189 C 120 205 70 228 40 270"/>
+      </g>
+      <!-- 골대 -->
+      <g fill="none" stroke="#e8ecf8" stroke-linecap="round">
+        <path d="M282 196 V70 H268" stroke-width="2.4" stroke-opacity=".75"/>
+        <rect x="262" y="44" width="6" height="56" rx="1.5" stroke-width="1.6" stroke-opacity=".9"/>
+        <rect x="263.5" y="60" width="3" height="18" stroke="#ef6a24" stroke-width="1.2"/>
+      </g>
+      <ellipse cx="248" cy="84" rx="13" ry="3.4" fill="none" stroke="#ef6a24" stroke-width="2"/>
+      <path d="M236 85 l4 15 h16 l4 -15 M241 86 l3 14 M248 87 v13 M255 86 l-3 14" fill="none" stroke="#c9d2ea" stroke-opacity=".55" stroke-width=".8"/>
+      <!-- 레이업: 손끝에서 백보드 사각형 모서리로 -->
+      <g fill="#f6c64a"><circle cx="226" cy="66" r="1" opacity=".45"/><circle cx="230" cy="61" r="1.2" opacity=".6"/></g>
+      <path d="M244 52 Q 256 50 262 58" fill="none" stroke="#f6c64a" stroke-opacity=".45" stroke-width="1" stroke-dasharray="1.5 3.5" stroke-linecap="round"/>
+      <circle cx="238" cy="54" r="18" fill="url(#h-glow)"/>
+      <circle cx="238" cy="54" r="7.5" fill="url(#h-ball)"/>
+      <path d="M231 54 h14 M238 47 v14 M233 49 q4.6 5 0 10 M243 49 q-4.6 5 0 10" fill="none" stroke="#5a1f06" stroke-opacity=".45" stroke-width=".8"/>
+      <!-- 슈터: 레이업 (앞무릎 리프트, 팔을 백보드 쪽으로 뻗음) -->
+      <g stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <g stroke="#cdbd9f">
+          <path d="M201 105 L192 114 L186 124" stroke-width="5.5"/>
+          <path d="M199 133 L195 153 L190 171" stroke-width="7.5"/>
+        </g>
+        <g class="h-fig h-main">
+          <path d="M204 100 L200 132" stroke-width="10.5"/>
+          <path d="M206 103 L214 88 L222 72" stroke-width="6"/>
+          <path d="M202 132 L214 124 L213 145" stroke-width="7.5"/>
+        </g>
+      </g>
+      <circle class="h-head h-main" cx="207" cy="86" r="8.5"/>
+      <ellipse cx="203" cy="198" rx="16" ry="2.8" fill="#000" opacity=".3"/>
+      <!-- 관찰자 1 -->
+      <g class="h-fig h-sub" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M46 160 L46 188" stroke-width="8.5"/>
+        <path d="M44 188 L41 214 M48 188 L52 214" stroke-width="6.5"/>
+        <path d="M47 164 L56 178 L62 170" stroke-width="5"/>
+        <path d="M44 164 L40 184" stroke-width="5"/>
+      </g>
+      <circle class="h-head h-sub" cx="47" cy="148" r="7.5"/>
+      <rect x="60" y="160" width="7" height="12" rx="1.6" fill="#0a1126" stroke="#f6c64a" stroke-width="1"/>
+      <rect x="61.3" y="161.6" width="4.4" height="8.4" rx=".8" fill="#ffe08a" opacity=".9"/>
+      <!-- 관찰자 2 -->
+      <g class="h-fig h-sub" stroke-linecap="round" stroke-linejoin="round" fill="none">
+        <path d="M86 166 L86 193" stroke-width="8.5"/>
+        <path d="M84 193 L81 218 M88 193 L92 218" stroke-width="6.5"/>
+        <path d="M87 170 L96 183 L102 176" stroke-width="5"/>
+        <path d="M84 170 L80 189" stroke-width="5"/>
+      </g>
+      <circle class="h-head h-sub" cx="87" cy="154" r="7.5"/>
+      <rect x="100" y="166" width="7" height="12" rx="1.6" fill="#0a1126" stroke="#f6c64a" stroke-width="1"/>
+      <rect x="101.3" y="167.6" width="4.4" height="8.4" rx=".8" fill="#ffe08a" opacity=".9"/>
+      <!-- 말풍선 -->
+      <g transform="translate(0 -8)"><g fill="#0f1830" fill-opacity=".85" stroke="#f6c64a" stroke-opacity=".7" stroke-width="1">
+        <path d="M30 118 h34 a9 9 0 0 1 9 9 v0 a9 9 0 0 1 -9 9 h-14 l-5 6 l-1 -6 h-14 a9 9 0 0 1 -9 -9 v0 a9 9 0 0 1 9 -9z"/>
+        <path d="M78 126 h32 a9 9 0 0 1 9 9 v0 a9 9 0 0 1 -9 9 h-13 l-4 6 l-2 -6 h-13 a9 9 0 0 1 -9 -9 v0 a9 9 0 0 1 9 -9z"/>
+      </g>
+      <g fill="#f6e3b0"><circle cx="39" cy="127" r="1.8"/><circle cx="47" cy="127" r="1.8"/><circle cx="55" cy="127" r="1.8"/>
+        <circle cx="86" cy="135" r="1.8"/><circle cx="94" cy="135" r="1.8"/><circle cx="102" cy="135" r="1.8"/></g></g>
+      <!-- 피드백 별빛: 휴대폰 → 슈터 -->
+      <g fill="none" stroke="#f6c64a" stroke-linecap="round" stroke-width="1" stroke-opacity=".55">
+        <path d="M67 160 C 100 116 150 100 194 104" stroke-dasharray="1 4"/>
+        <path d="M107 166 C 132 140 166 124 194 120" stroke-dasharray="1 4"/>
+      </g>
+      <!-- 반짝이는 별 -->
+      <g fill="url(#h-gold)" stroke="url(#h-gold)" stroke-width="1.2">
+        <use href="#h-spark" class="h-tw t1" transform="translate(118 44) scale(0.85)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(34 50) scale(1.15)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(76 82) scale(0.6)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(150 22) scale(0.55)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(244 28) scale(0.5)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(258 140) scale(0.75)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(232 162) scale(0.6)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(170 150) scale(0.5)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(126 128) scale(0.55)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(100 108) scale(0.45)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(60 22) scale(0.5)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(92 34) scale(0.4)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(174 92) scale(0.45)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(250 116) scale(0.55)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(290 92) scale(0.5)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(16 96) scale(0.6)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(162 120) scale(0.4)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(118 160) scale(0.4)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(22 150) scale(0.45)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(212 214) scale(0.5)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(110 236) scale(0.4)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(170 242) scale(0.55)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(286 170) scale(0.45)"/>
+        <use href="#h-spark" class="h-tw t1" transform="translate(70 252) scale(0.45)"/>
+        <use href="#h-spark" class="h-tw t2" transform="translate(250 248) scale(0.4)"/>
+        <use href="#h-spark" class="h-tw t3" transform="translate(184 186) scale(0.35)"/>
+      </g>
+      <!-- 받은 별 -->
+      <g transform="translate(150 60)">
+        <rect x="0" y="0" width="38" height="17" rx="8.5" fill="#0f1830" stroke="#f6c64a" stroke-opacity=".8" stroke-width="1"/>
+        <use href="#h-spark" fill="#f6c64a" transform="translate(10 8.5) scale(.42)"/>
+        <text x="25" y="12.3" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, monospace" font-size="10" font-weight="600" fill="#ffe08a">12</text>
+      </g>
+    </g>
+  </svg>
+</header>
+
+<nav class="toc" aria-label="차례">
+  <button type="button" class="toc-btn" id="toc-btn" aria-expanded="false" aria-controls="toc-in"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg><span>바로가기</span><span class="toc-cur" id="toc-cur">눌러서 이동해 보세요</span><svg class="chev" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg></button>
+  <div class="toc-in" id="toc-in">
+    <span class="toc-label" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 6h16M4 12h16M4 18h10"/></svg>바로가기</span>
+    <a href="#why" data-sec="why">수업의 출발</a>
+    <a href="#agency" data-sec="agency">주도성 세 갈래</a>
+    <a href="#curri" data-sec="curri">교육과정 연계</a>
+    <a href="#lesson" data-sec="lesson">한 차시 흐름</a>
+    <a href="#try" data-sec="try" class="primary">직접 해 보기</a>
+    <a href="#modes" data-sec="modes">앱의 네 화면</a>
+    <a href="#voices" data-sec="voices">학생의 글</a>
+    <a href="#limits" data-sec="limits">Q&amp;A</a>
+    <a href="#take" data-sec="take">가져가실 것</a>
+  </div>
+</nav>
+
+
+
+<section id="why" aria-labelledby="h-why">
+  <p class="eyebrow">수업의 출발</p>
+  <h2 id="h-why">왜 학생이 서로 피드백하는가</h2>
+  <div class="reasons">
+    <div class="reason"><b>관찰의 기회</b><p>교사 한 명의 피드백만으로는 모든 학생이 자기 자세를 충분히 점검받기 어려워요. 서로 봐 주면 한 사람이 받는 관찰이 늘어나요.</p></div>
+    <div class="reason"><b>수신자에서 관찰자로</b><p>교사가 고쳐 주는 수업에서 학생은 받아서 적용하는 사람에 머물기 쉬워요. 기준을 들고 직접 보고 말하는 자리로 옮기고 싶었어요.</p></div>
+    <div class="reason"><b>안목이 자란다</b><p>기준에 맞춰 친구의 슛을 보고 이유를 말하다 보면 보는 눈이 생기고, 그 눈으로 내 자세의 문제도 스스로 찾게 돼요.</p></div>
+  </div>
+  <p class="quote">친구에게 건네는 피드백은 친구를 위한 말이지만, 결국 나를 비추는 거울이기도 합니다. 체육은 자기 동작을 자기 눈으로 보기 어려운 교과라서 더 그렇습니다.</p>
+  <p class="muted">학습자 주도성은 학생을 내버려 두는 일이 아니라, 학생이 스스로 판단할 재료와 기회를 수업 구조 안에 마련해 주는 일이라고 봤어요. 그래서 주도성을 세 갈래로 나눠 설계했어요.</p>
+</section>
+
+<section id="agency" aria-labelledby="h-agency">
+  <p class="eyebrow">주도성 세 갈래</p>
+  <h2 id="h-agency">주도성 세 갈래와 수업 장치</h2>
+  <div class="agency">
+    <div class="head"><span>주도성의 갈래</span><span>수업에서 나타나는 모습</span><span>총론 핵심역량</span></div>
+    <div><b>인지적 주도성</b><span>4대 평가기준으로 친구의 동작을 쪼개 보고 성공·보완필요를 판단하는 분석 전문가가 돼요.</span><em>지식정보처리 역량</em></div>
+    <div><b>행동적·전략적 주도성</b><span>계획(Plan)-실행(Do)-성찰(See)을 돌며 받은 피드백으로 다음 연습 목표를 스스로 세우고 적용해요.</span><em>자기관리 역량</em></div>
+    <div><b>사회적·관계적 주도성</b><span>친구의 피드백이 내 목표가 되고, 내 피드백이 친구의 목표가 되며 학급이 함께 자라요.</span><em>협력적 소통 역량</em></div>
+  </div>
+</section>
+
+<section id="curri" aria-labelledby="h-curri">
+  <p class="eyebrow">교육과정 연계</p>
+  <h2 id="h-curri">2022 개정 교육과정과의 연결</h2>
+  <p class="note">실제 평가계획은 중3 대상이라 2015 개정으로 세웠어요. 다른 학교에서 2022 개정에 맞춰 수업하실 수 있도록, 여기서는 같은 수업을 2022 개정 기준으로 설명해요.</p>
+  <div class="tbl-wrap">
+    <table class="cmp ver">
+      <thead><tr><th>구분</th><th>2015 개정 <span class="sub-h">(평가계획 기준)</span></th><th>2022 개정 <span class="sub-h">(이 페이지의 설명 기준)</span></th></tr></thead>
+      <tbody>
+        <tr><th>유형</th><td data-label="2015 개정 (평가계획 기준)">기록 도전 스포츠</td><td data-label="2022 개정 (이 페이지의 설명 기준)" class="hi">기록형 스포츠</td></tr>
+        <tr><th>성취기준</th><td data-label="2015 개정 (평가계획 기준)"><span class="code">[9체02-06]</span> 기록 도전 스포츠에서 활용되는 유형별 경기 기능과 과학적 원리를 이해하고 운동 수행에 적용하며, 운동 수행 과정에서 나타나는 문제점을 분석하고 해결한다</td><td data-label="2022 개정 (이 페이지의 설명 기준)" class="hi"><span class="code">[9체02-05]</span> 기록형 스포츠의 수행 원리를 적용하여 경기 기능을 수련하고 향상한다</td></tr>
+        <tr><th>수업의 대응</th><td data-label="2015 개정 (평가계획 기준)">평가기준 네 가지로 관찰(과학적 원리), 드러난 문제점을 분석해 다음 연습에서 해결</td><td data-label="2022 개정 (이 페이지의 설명 기준)" class="hi">서로 관찰하고 피드백(수행 원리 적용), 그 피드백을 다음 연습에 반영(수련·향상)</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tbl-wrap">
+    <table class="map">
+      <thead><tr><th>교육과정의 요구</th><th>확인 근거</th><th>수업 장치</th></tr></thead>
+      <tbody>
+        <tr><th>학습자 주도성</th><td data-label="확인 근거">총론 구성의 중점: 자신의 삶과 학습을 스스로 이끌어가는 주도성</td><td data-label="수업 장치">기준별 판단, 별·코멘트 작성, 보답 별, 연습 목표 설정을 학생이 직접</td></tr>
+        <tr><th>질문이 있는 수업</th><td data-label="확인 근거">총론 교수·학습: 탐구 질문을 스스로 해결하는 학생 참여형 수업</td><td data-label="수업 장치">차시마다 "오늘의 질문(황금박스)"에 답하고 연습하며 확인</td></tr>
+        <tr><th>환류와 피드백</th><td data-label="확인 근거">총론 평가: 학습 과정을 확인하고 환류</td><td data-label="수업 장치">관찰자 피드백 → 받은 피드백 확인 → 종합 분석으로 다음 목표</td></tr>
+        <tr><th>과정 중심 평가</th><td data-label="확인 근거">체육과 교수·학습 및 평가 방향</td><td data-label="수업 장치">차시별 피드백 기록이 쌓여 수행 과정이 남음</td></tr>
+        <tr><th>자기 평가</th><td data-label="확인 근거">총론 평가: 스스로 평가할 기회 제공</td><td data-label="수업 장치">받은 피드백과 종합 분석을 보며 자기 수행을 돌아봄</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tbl-wrap">
+    <table class="cmp crit-tbl">
+      <thead><tr><th>4대 평가기준</th><th>미들슛</th><th>레이업슛</th></tr></thead>
+      <tbody>
+        <tr><th>1</th><td data-label="미들슛"><b>무릎 반동 활용</b><br><span class="muted small">슛 직전 무릎을 부드럽게 굽혀 반동을 이용</span></td><td data-label="레이업슛"><b>정확한 1-2 스텝</b><br><span class="muted small">드리블-캐치 후 스텝을 정확하게</span></td></tr>
+        <tr><th>2</th><td data-label="미들슛"><b>높은 릴리스 타점</b><br><span class="muted small">캐치한 공의 위치보다 높은 곳에서 릴리스</span></td><td data-label="레이업슛"><b>백보드 겨냥점 명중</b><br><span class="muted small">백보드 사각형 겨냥점을 정확히</span></td></tr>
+        <tr><th>3</th><td data-label="미들슛"><b>팔로우 스로우</b><br><span class="muted small">슛 이후 림을 향해 팔을 끝까지</span></td><td data-label="레이업슛"><b>수직 도약 무릎 리프트</b><br><span class="muted small">한쪽 다리를 들어 수직 추진력</span></td></tr>
+        <tr><th>4</th><td data-label="미들슛"><b>손목 스냅</b><br><span class="muted small">릴리스 시 손목 스냅 활용</span></td><td data-label="레이업슛"><b>유기적 연결 동작</b><br><span class="muted small">드리블-스텝-점프가 끊김 없이</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="muted small">학생이 친구를 관찰하는 기준과 교사가 자세 점수(10점)를 매기는 기준이 같아요. 평가기준이 점수의 잣대이자 학생의 관찰 틀이 돼요.</p>
+</section>
+
+<section id="lesson" aria-labelledby="h-lesson">
+  <p class="eyebrow">한 차시 흐름</p>
+  <h2 id="h-lesson">계획-실행-성찰이 도는 한 차시</h2>
+  <div class="timeline" aria-label="한 차시 시간 배분">
+    <div class="t-plan"><b>계획 10분</b><span>오늘의 질문 답하기, 모둠 편성, 유의사항, 준비운동</span></div>
+    <div class="t-do"><b>실행 30분 (10분 × 3회전)</b><span>수행자 시연 · 관찰자 피드백 · 자율 연습을 모둠이 돌아가며</span></div>
+    <div class="t-see"><b>성찰</b><span>받은 피드백, 종합 분석</span></div>
+  </div>
+  <ol class="pds">
+    <li><span class="tag">계획</span><div><h3>오늘의 질문 "황금박스"</h3><p>교사가 반별 진행 차시를 정하면 학생이 QR로 들어와 질문에 답해요. 정답이 아니어도 괜찮으니 자기 생각을 적어 보고, 수업 중에 그 생각을 떠올리며 수행해요.</p></div></li>
+    <li><span class="tag">실행</span><div><h3>시연과 관찰자 피드백</h3><p>관찰자는 기준 4개를 성공/보완필요로 체크하고, 별 1~3개와 이유를 담은 코멘트를 보내요. 코멘트는 4대 기준에 맞추어 어느 동작이 좋았고 어느 동작을 보완하면 좋을지 써요.</p></div></li>
+    <li><span class="tag">성찰</span><div><h3>받은 피드백 확인과 종합 분석</h3><p>도움이 된 피드백에 보답 별을 보내고, AI 종합 분석으로 기준별 강점·보완점과 원포인트 교정 드릴을 보며 다음 목표를 정해요.</p></div></li>
+  </ol>
+  <p class="loop">↺ 성찰에서 정한 목표가 다음 차시의 계획이 돼요</p>
+
+  <div class="rot">
+    <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center">
+      <h3>모둠 로테이션 <span class="muted small">(남학생 A·B·C / 여학생 A·B·C 각각)</span></h3>
+      <div class="seg" role="tablist" aria-label="회전 선택">
+        <button role="tab" aria-selected="true" data-round="0" id="rot-0">1회전</button>
+        <button role="tab" aria-selected="false" data-round="1" id="rot-1">2회전</button>
+        <button role="tab" aria-selected="false" data-round="2" id="rot-2">3회전</button>
+      </div>
+    </div>
+    <div class="groups" id="groups"></div>
+  </div>
+  <p class="muted">교사는 자세를 직접 고쳐 주기도 하지만 오늘의 질문을 설계하고, 시연과 피드백 교환을 지켜보다가 필요한 곳에 교사 피드백과 별을 더하는 역할에 방점을 두었어요.</p>
+</section>
+
+<section id="try" aria-labelledby="h-try">
+  <p class="eyebrow">직접 해 보기</p>
+  <h2 id="h-try">학생과 교사가 되어 직접 해 보기</h2>
+  <p class="lead">학생들이 실제로 쓰는 네 화면을 그대로 옮겼어요. 네 화면은 서로 이어져 있어서, 관찰자로 보낸 피드백이 수행자 화면과 학급별빛현황에 바로 나타나고, 관제센터에서 바꾼 차시와 질문이 수행자 화면에 뜹니다. 이 페이지 안에서만 돌아가는 예시라 실제 학생 데이터는 쓰지 않아요.</p>
+
+  <div class="mode-tabs" role="tablist" aria-label="앱 화면">
+    <button type="button" role="tab" class="mt sky" data-mode="observer" id="mt-observer" aria-selected="true"><span>관찰자 모드</span><b>별의별 피드백</b></button>
+    <button type="button" role="tab" class="mt amber" data-mode="performer" id="mt-performer" aria-selected="false"><span>수행자 모드</span><b>슈팅스타, 별을 쏘다</b></button>
+    <button type="button" role="tab" class="mt indigo" data-mode="overview" id="mt-overview" aria-selected="false"><span>전체확인 모드</span><b>학급별빛현황</b></button>
+    <button type="button" role="tab" class="mt rose" data-mode="teacher" id="mt-teacher" aria-selected="false"><span>교사 모드</span><b>별빛 관제센터</b></button>
+  </div>
+  <button class="reset" id="reset" type="button">처음부터 다시</button>
+
+  <div class="phone">
+    <div class="app" id="lab"></div>
+  </div>
+  <p class="try-hint" id="try-hint"></p>
+</section>
+
+<section id="modes" aria-labelledby="h-modes">
+  <p class="eyebrow">앱의 네 화면</p>
+  <h2 id="h-modes">앱의 네 화면과 네 가지 장치</h2>
+  <div class="modes">
+    <div class="mode sky"><span class="mhead"><span class="who-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M22 12h-4M6 12H2M12 6V2M12 22v-4"/></svg>관찰자</span><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></span><span class="mn">별의별 피드백</span><p>학급 → 나 → 관찰할 친구 → 슛 종류를 고르고, 기준 4개 체크와 별·코멘트를 보내요.</p></div>
+    <div class="mode amber"><span class="mhead"><span class="who-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>수행자</span><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></span><span class="mn">슈팅스타, 별을 쏘다</span><p>나에게 온 피드백을 차시별로 보고, 보답 별을 보내고, 오늘의 질문과 AI 종합 분석을 확인해요.</p></div>
+    <div class="mode indigo"><span class="mhead"><span class="who-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>학급 전체</span><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></span><span class="mn">학급별빛현황</span><p>학급별 별 순위와 학생별 별 현황, 상세 피드백, 평가기준 체크리스트를 함께 봐요.</p></div>
+    <div class="mode rose"><span class="mhead"><span class="who-tag"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>교사</span><span class="arw" aria-hidden="true"><svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M12 5l7 7-7 7"/></svg></span></span><span class="mn">별빛 관제센터</span><p>명렬표와 진행 차시, 차시별 오늘의 질문과 답변 확인, 미제출 명단, 교사 피드백과 별, 데이터 백업.</p></div>
+  </div>
+  <div class="devices">
+    <div><h3>기준으로 보게 하는 장치</h3><p>기준마다 성공과 보완필요를 고르게 해서 막연한 인상이 아니라 기준 단위로 판단하게 했어요.</p></div>
+    <div><h3>이유를 말하게 하는 장치</h3><p>별 1~3개로 종합하고 이유를 코멘트로 써요. 클린봇이 욕설·비하 표현을 막고, 예시 문구로 첫마디를 도와요.</p></div>
+    <div><h3>주고받음을 이어 주는 장치</h3><p>도움이 된 피드백에 보답 별을 보내고, 학급 별 현황으로 서로 말해 주는 일이 학급의 성장으로 보이게 했어요.</p></div>
+    <div><h3>되돌아보게 하는 장치</h3><p>오늘의 질문으로 시작하고 종합 분석으로 끝나요. 근거가 부족한 기준은 "판단보류"로 남겨 단정하지 않아요.</p></div>
+  </div>
+  <p class="muted small">별을 모으는 방식은 동기와 자극을 주려고 넣었고, 앱 이름 "슛타워즈"도 여기서 나왔어요. 다만 판단의 깊이는 별의 개수가 아니라 이유 한 문장에서 드러나요.</p>
+</section>
+
+<section id="voices" aria-labelledby="h-voices">
+  <p class="eyebrow">학생의 글</p>
+  <h2 id="h-voices">효과는 숫자보다 학생의 글에서 읽어요</h2>
+  <p class="muted">이름과 반은 지웠고, 표기는 읽기 쉽게 일부만 다듬었어요.</p>
+  <div class="cases">
+    <div class="seg" role="tablist" aria-label="학생 글 유형">
+      <button role="tab" aria-selected="true" data-case="0" id="case-0">기준으로 짚기</button>
+      <button role="tab" aria-selected="false" data-case="1" id="case-1">연습 방법 제안</button>
+      <button role="tab" aria-selected="false" data-case="2" id="case-2">원인과 처방</button>
+      <button role="tab" aria-selected="false" data-case="3" id="case-3">시간순 관찰</button>
+    </div>
+    <div class="case-panel" id="case-panel"></div>
+  </div>
+</section>
+
+<section id="limits" aria-labelledby="h-limits">
+  <p class="eyebrow">Q&amp;A</p>
+  <h2 id="h-limits">자주 받는 질문</h2>
+  <p class="muted">운영하며 부딪힌 한계와 그때 어떻게 했는지를 질문으로 정리했어요.</p>
+  <div class="qa">
+  <details><summary>학생들이 쓴 피드백의 질은 어땠나요?</summary><p>기준을 하나씩 짚고 원인과 연습 방법까지 제안하는 등 잘 쓰는 학생도 있었어요(위 "학생의 글" 칸의 사례들이에요). 하지만 별을 후하게 준 글, 짧거나 같은 문장이 되풀이된 글도 적지 않았어요. 그래서 교사가 수업마다 쌓인 피드백을 체크하고, 기준과 이유를 담아 쓰도록 수업 시간마다 계속 강조했어요.</p></details>
+  <details><summary>별을 너무 후하게 주지 않았나요?</summary><p>학생들은 별을 후하게 주는 경향이 있었어요. 별을 많이 주더라도 막지 않고 그대로 두었어요. 별은 서로 주고받는 재미를 주는 장치로 두고, 수업에서 중요하게 본 것은 왜 그렇게 봤는지 이유를 적고 기준에 비추어 분석하는 일이었어요. 그래서 피드백을 읽을 때도 별의 개수보다 글에 담긴 이유와 분석을 봤어요.</p></details>
+  <details><summary>AI 종합 분석은 믿을 만한가요?</summary><p>분석은 친구들과 교사가 남긴 피드백을 재료로 하기 때문에, 모인 피드백이 짧거나 반복되면 분석도 얕아져요. 그래서 근거가 부족한 기준은 "판단보류"로 남겨 단정하지 않게 했어요. 친구들이 기준과 이유를 구체적으로 쓸수록 분석의 재료가 풍부해져요.</p></details>
+  <details><summary>학생이 본 동작이 맞는지는 어떻게 확인하나요?</summary><p>교사가 모든 관찰을 일일이 확인하기는 어려워요. 그래서 4대 평가기준을 수업 내내 강조해 학생이 같은 기준으로 동작을 보도록 했고, 교사 피드백도 함께 받게 했어요.</p></details>
+  <details><summary>한 친구를 관찰하는 시간은 충분했나요?</summary><p>매 시간 모든 학생에게 실제로 움직이는 시간을 주려고 수행자·관찰자·자율 연습 세 역할을 10분씩 돌렸어요. 그 대신 모둠별 관찰 시간이 짧아져, 한 친구의 슛을 오래 집중해서 보기는 어려웠어요. 차시마다 한 모둠이 한 역할만 맡는 방식도 가능해요.</p></details>
+  <details><summary>학생 개인정보는 어떻게 다루나요?</summary><p>학생은 로그인 없이 익명으로 접속하고, 명단 수정은 교사 계정만 할 수 있어요. 학급마다 입장 비밀번호를 걸 수 있어요. AI 종합 분석을 요청하면 그 학생의 이름, 슛 종류, 받은 피드백이 서버를 거쳐 AI에 전달되고, 학번과 반은 전달하지 않아요.</p></details>
+  </div>
+</section>
+
+<section id="take" class="take" aria-labelledby="h-take">
+  <p class="eyebrow" style="color:var(--star)">가져가실 것</p>
+  <h2 id="h-take">핵심은 앱이 아니라 구조입니다</h2>
+  <p style="opacity:.85">아래 세 가지는 앱 없이 종이 관찰지와 모둠 로테이션만으로도 만들 수 있어요. 다른 종목과 학교급에 맞게 줄이고 바꿔 보세요.</p>
+  <ol>
+    <li>평가기준을 학생과 나눈다<span>교사가 채점하는 기준을 학생의 관찰 틀로 그대로 건네기</span></li>
+    <li>수행자와 관찰자의 역할을 바꾼다<span>모두가 한 번은 "고쳐 주는 사람"의 자리에 서기</span></li>
+    <li>성찰에서 정한 목표가 다음 계획이 되게 순환시킨다<span>받은 피드백 → 내 연습 목표 → 다음 차시 오늘의 질문</span></li>
+  </ol>
+  <p class="last">학생에게 피드백을 받는 사람이 아니라 주는 사람의 자리를 줘 보세요.</p>
+</section>
+
+<footer>
+  <span>갈매중학교 체육 · 경기도좋은체육수업나눔연구회 수업 큐레이팅 자료</span>
+</footer>
+</div>
+
+<script>
+(function () {
+  // ---------- 차례(바로가기) ----------
+  const tocLinks = [...document.querySelectorAll(".toc a")];
+  tocLinks.forEach(a => a.addEventListener("click", e => {
+    const el = document.getElementById(a.dataset.sec);
+    if (!el) return;
+    e.preventDefault();
+    setToc(false);
+    el.scrollIntoView({ behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth", block: "start" });
+  }));
+  function markCurrent() {
+    let cur = null;
+    tocLinks.forEach(a => { const el = document.getElementById(a.dataset.sec); if (el && el.getBoundingClientRect().top < 120) cur = a; });
+    tocLinks.forEach(a => a.setAttribute("aria-current", String(a === cur)));
+    const curEl = document.getElementById("toc-cur");
+    if (curEl) curEl.textContent = cur ? cur.textContent : "눌러서 이동해 보세요";
+  }
+  const toc = document.querySelector(".toc"), tocBtn = document.getElementById("toc-btn");
+  function setToc(open) { toc.classList.toggle("open", open); tocBtn.setAttribute("aria-expanded", String(open)); }
+  tocBtn.addEventListener("click", () => setToc(!toc.classList.contains("open")));
+  addEventListener("scroll", markCurrent, { passive: true });
+  markCurrent();
+
+  // ---------- 모둠 로테이션 ----------
+  const ROUNDS = [["perf","obs","prac"],["prac","perf","obs"],["obs","prac","perf"]];
+  const ROLE = { perf: ["수행자", "슛 시연 · 피드백 받기"], obs: ["관찰자", "기준 4개 체크 · 별 · 코멘트"], prac: ["자율 연습", "미들슛·레이업슛 연습"] };
+  const groupsEl = document.getElementById("groups");
+  function drawRound(r) {
+    groupsEl.innerHTML = ["A","B","C"].map((g, i) => {
+      const k = ROUNDS[r][i];
+      return `<div class="grp ${k}"><span class="gname">${g}모둠</span><span class="role">${ROLE[k][0]}</span><span class="what">${ROLE[k][1]}</span></div>`;
+    }).join("");
+    document.querySelectorAll("[data-round]").forEach(b => b.setAttribute("aria-selected", String(+b.dataset.round === r)));
+  }
+  document.querySelectorAll("[data-round]").forEach(b => b.addEventListener("click", () => drawRound(+b.dataset.round)));
+  drawRound(0);
+
+  // ---------- 학생 글 ----------
+  const CASES = [
+    { says: [
+        ["무릎 반동 보다는 앞으로 한 걸음 떼며 뒤꿈치만 드는 느낌이 강했다. 그리고 팔로우 스로우가 오래 유지되지 않아서 방향이 흔들리는 것을 보완하면 좋을 것 같다. 그래도 릴리스 타점이 높아서 링 위에서 수직으로 떨어지고, 손목 스냅이 자연스러워서 부러웠다!", "미들슛"],
+        ["다리를 어깨 너비로 벌리고 무릎 반동을 사용해서 안정적으로 높은 릴리스 타점을 쟁취했다. 또한 손목 스냅도 이전보다 훨씬 실력이 향상되었다. 다만 여전히 팔로우 스로우가 빨리 떨어지므로 팔로우 스로우 교정 시 백스핀이 더 정확하게 보일 것 같다.", "미들슛"] ],
+      read: "<b>4대 기준을 하나씩 짚어</b> 잘한 점과 보완할 점을 가르고, 친구가 잘하는 점을 구체적으로 인정했어요. 인지적 주도성이 글로 드러난 장면이에요." },
+    { says: [
+        ["다른 자세들은 좋지만 그나마 피드백을 주자면 손목 스냅을 더 활용하는 것이다. 하기 전 허공에 손목 스냅을 이용해 던져 보는 연습하기", "미들슛"],
+        ["손목 스냅과 타점이 높아 좋지만 무릎 반동과 팔로우 스로우가 유지되지 않아서 다음에 쏠 땐 손을 2초 정도 늦게 내려놓는 게 좋을 것이다.", "미들슛"],
+        ["백보드의 목표지점을 아직 제대로 명중시키려는 자세가 필요해. 그래서 손에서 공을 띄울 때 공만 보는 게 아니라 백보드도 함께 번갈아 봐봐.", "레이업슛"] ],
+      read: "부족한 점에서 멈추지 않고 <b>친구가 다음 연습에서 바로 해 볼 행동</b>을 적었어요. 내 피드백이 친구의 목표가 되는 사회적·관계적 주도성의 장면이에요." },
+    { says: [
+        ["무릎의 반동을 사용해야 하는데 그냥 점프를 뛰어 팔의 힘으로만 하니까 부담이 생기고 릴리즈 타점이 낮아 골대에 잘 안 들어가는 거 같다", "미들슛"],
+        ["백보드를 맞추지 않고 바로 골대에 넣으려고 하여 골인 횟수가 적은 것 같다. 마지막 점프 때 무릎을 더 높게 치면 체공 기간이 자연스럽게 높아지니 무릎을 차올리는 연습을 하면 좋을 것 같고 캐치 후 도약까지의 연결 속도가 자연스러워 좋았다.", "레이업슛"],
+        ["팔로우 스로우나 무릎반동은 잘 활용하지만 손목 스냅을 이용하지 못해 백스핀이 안 되고 타점이 정확히 지정되지 않아 공이 백보드로 가지 못한다", "미들슛"] ],
+      read: "\"기준을 체크했다\"에서 한 걸음 나아가 <b>동작과 결과의 관계</b>를 설명하고 처방까지 내놓았어요. 수행 원리를 적용해 문제를 해결하는 성취기준의 모습과 닿아 있어요." },
+    { timeline: [
+        ["초반", "무릎반동을 적게 쓰고 높은 타점과 손목 스냅을 잘 넣어 가끔 골을 넣긴 하지만 넣는 개수를 늘리려면 팔로우 스로우를 확실하게 해 자세를 잡고, 팔의 힘으로만 슛을 넣는 습관을 고쳐야 할 것 같다."],
+        ["중반", "무릎 반동을 더 사용해야 공이 힘 있게 나갈 것 같고 나머지는 다 알맞게 사용한 듯"],
+        ["다음 차시", "어제보다 확실히 좋아졌고 부족했던 부분을 잘 채웠다. 하지만 손목 스냅을 좀 더 걸고 힘을 더 넣어 백보드를 맞추는 연습은 더 해야 할 거 같다"],
+        ["후반", "나머지는 다 좋은데 손목 스냅이 조금 아쉽다"] ],
+      read: "같은 관찰자가 같은 친구의 미들슛을 여러 차시 본 기록이에요. 무릎 반동 지적이 <b>\"부족했던 부분을 잘 채웠다\"는 인정</b>으로 바뀌고, 손목 스냅이 새 보완점으로 나왔어요. 친구의 이전 모습을 기억하고 비교하는 관찰이 학생들 사이에서 이루어졌어요." }
+  ];
+  const panel = document.getElementById("case-panel");
+  function esc(s) { return String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c])); }
+  function drawCase(i) {
+    const c = CASES[i];
+    let html = "";
+    if (c.says) html += c.says.map(([t, s]) => `<div class="say">"${esc(t)}"<span class="shot${s === "레이업슛" ? " layup" : ""}">${s}</span></div>`).join("");
+    if (c.timeline) html += `<div class="tl">${c.timeline.map(([w, t]) => `<div><span class="when">${w}</span><p>"${esc(t)}"</p></div>`).join("")}</div>`;
+    html += `<p class="read">${c.read}</p>`;
+    panel.innerHTML = html;
+    document.querySelectorAll("[data-case]").forEach(b => b.setAttribute("aria-selected", String(+b.dataset.case === i)));
+  }
+  document.querySelectorAll("[data-case]").forEach(b => b.addEventListener("click", () => drawCase(+b.dataset.case)));
+  drawCase(0);
+
+  // ---------- 체험: 실제 앱 네 화면 ----------
+  const IC = {
+    star: '<svg class="i fill" viewBox="0 0 24 24"><path d="M12 2l3.1 6.3 6.9 1-5 4.9 1.2 6.8L12 17.8 5.8 21l1.2-6.8-5-4.9 6.9-1z"/></svg>',
+    check: '<svg class="i" viewBox="0 0 24 24"><path d="M20 6L9 17l-5-5"/></svg>',
+    alert: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>',
+    send: '<svg class="i" viewBox="0 0 24 24"><path d="M22 2L11 13M22 2l-7 20-4-9-9-4z"/></svg>',
+    cal: '<svg class="i" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>',
+    bulb: '<svg class="i" viewBox="0 0 24 24"><path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/></svg>',
+    shield: '<svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>',
+    spark: '<svg class="i" viewBox="0 0 24 24"><path d="M12 3l1.9 5.1L19 10l-5.1 1.9L12 17l-1.9-5.1L5 10l5.1-1.9z"/></svg>',
+    bot: '<svg class="i" viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="10" rx="2"/><circle cx="12" cy="5" r="2"/><path d="M12 7v4M8 16h.01M16 16h.01"/></svg>',
+    flame: '<svg class="i" viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0 0 11 12c0-1.4-.5-2-1-3-1.1-2.1-.2-4 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 1 1-14 0c0-1.2.4-2.3 1-3.2.4 1.7 1.3 2.7 2.5 2.7z"/></svg>',
+    heart: '<svg class="i fill" viewBox="0 0 24 24"><path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21.2l8.8-8.8a5.5 5.5 0 0 0 0-7.8z"/></svg>',
+    award: '<svg class="i" viewBox="0 0 24 24"><circle cx="12" cy="8" r="6"/><path d="M15.5 13.5L17 22l-5-3-5 3 1.5-8.5"/></svg>',
+    quote: '<svg class="i" viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>',
+    shieldAlert: '<svg class="i" viewBox="0 0 24 24" style="width:22px;height:22px"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M12 8v4M12 16h.01"/></svg>',
+    trophy: '<svg class="i" viewBox="0 0 24 24"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.7V17c0 .6-.5 1-1 1.2C7.8 18.8 7 20.2 7 22M14 14.7V17c0 .6.5 1 1 1.2 1.2.6 2 2 2 3.8M18 2H6v7a6 6 0 0 0 12 0z"/></svg>',
+    chev: '<svg class="i" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>',
+    back: '<svg class="i" viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>',
+    search: '<svg class="i" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.3-4.3"/></svg>',
+    layers: '<svg class="i" viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>',
+    sheet: '<svg class="i" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg>',
+    cloud: '<svg class="i" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 0 1 0 9z"/></svg>',
+    shieldT: '<svg class="i" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>',
+    x: '<svg class="i" viewBox="0 0 24 24"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+  };
+  // 실제 앱의 4대 평가기준 (types.ts)
+  const CRIT = {
+    middle: [
+      { name: "무릎 반동 활용", text: "슛 직전 무릎을 부드럽게 굽혀 반동을 이용하여 슛 할 수 있다.", focus: "하체 딥(Dip) 및 탄력 전달", mistake: "무릎을 굽히지 않고 상체 팔 힘으로만 던지는 경우" },
+      { name: "높은 릴리스 타점", text: "슛 릴리스 위치가 캐치한 공의 위치보다 높은 곳에서 이루어 질 수 있게 할 수 있다.", focus: "타점(Set Point) 및 시선 확보", mistake: "가슴이나 턱 앞에서 밀어 던져 타점이 낮은 경우" },
+      { name: "팔로우 스로우", text: "슛 이후 림을 향해 팔을 끝까지 뻗는 팔로우 스로우 동작을 수행할 수 있다.", focus: "슛 라인 고정 및 백스핀 유지", mistake: "슛 직후 팔을 급하게 바로 내리거나 림 밖으로 비틀어지는 경우" },
+      { name: "손목 스냅", text: "슛 릴리스 시 손목 스냅을 활용할 수 있다.", focus: "손목 꺾임(Goose Neck)과 백스핀", mistake: "손목 스냅 없이 손바닥으로 밀어 공의 회전이 부족한 경우" }
+    ],
+    layup: [
+      { name: "정확한 1-2 스텝", text: "드리블-캐치 후 레이업 시 스텝을 정확하게 구사할 수 있다.", focus: "오른손 레이업 시 오른발-왼발 도약 스텝", mistake: "스텝이 엉키거나 트래블링(3보 이상)을 범하는 경우" },
+      { name: "백보드 겨냥점 명중", text: "백보드의 사각형 겨냥점을 정확히 맞출 수 있다.", focus: "백보드 사각형 상단 코너 터치", mistake: "림만 보고 던지거나 겨냥점을 빗나가 림을 강하게 튀어나오는 경우" },
+      { name: "수직 도약 무릎 리프트", text: "점프할 때 한 쪽 다리를 들어올려 수직 추진력을 얻을 수 있다.", focus: "점프 시 안쪽 무릎을 높게 차올려 수직 상승", mistake: "앞으로만 쏠려 전방 충돌하거나 충분한 높이로 도약하지 못하는 경우" },
+      { name: "유기적 연결 동작", text: "드리블-스텝-점프까지의 과정이 끊김없이 연결된 동작으로 수행할 수 있다.", focus: "속도 유지와 부드러운 릴리스 흐름", mistake: "캐치 순간 멈칫하며 속도가 줄어 점프 타이밍이 끊기는 경우" }
+    ]
+  };
+  const EXAMPLES = {
+    middle: ["무릎 반동을 부드럽게 잘 썼어요!", "슛 타점이 조금 낮아서 올리면 더 좋을 것 같아요.", "팔로우 스로우 끝까지 유지하는 자세가 멋져요!", "손목 스냅을 조금 더 채주면 공 회전이 살아나요."],
+    layup: ["1-2 스텝이 끊김없이 아주 정확했어요!", "백보드 사각형 상단 모서리를 정확히 조준했어요!", "점프 시 무릎을 더 높게 차올리면 체공 시간이 늘어나요.", "캐치 후 도약까지 연결 속도가 자연스러워요."]
+  };
+  const SHOT = { middle: "미들 점프슛", layup: "돌파 레이업슛" };
+  const SHOT_ICON = { middle: "🏀", layup: "🏃‍♂️" };
+  const FALLBACK_TIP = {
+    middle: "슛 직전 무릎 굽힘과 림을 향한 팔로우 스로우 팔 뻗음을 한 동작처럼 연결하세요.",
+    layup: "오른손 레이업 시 오른발-왼발 1-2 스텝 후 백보드 사각형 상단 코너를 부드럽게 맞추세요."
+  };
+  // 실제 앱에 들어 있는 1~17차시 오늘의 질문 (defaultData.ts)
+  const QUESTIONS = {
+    1: "오늘 농구공을 다루면서 가장 중요하다고 느낀 기본 감각(손가락 터치, 시선 유지 등)은 무엇인가요?",
+    2: "미들슛을 던질 때 무릎을 부드럽게 굽혔다 펴는 하체 반동(Dip)이 슛 비거리에 어떤 영향을 주었나요?",
+    3: "공을 릴리스할 때 타점(Set Point)을 가슴보다 높은 이마 위쪽에서 유지해야 하는 이유는 무엇일까요?",
+    4: "슛을 던진 직후 팔을 림 쪽으로 끝까지 뻗는 '팔로우 스로우' 자세가 공의 방향성과 포물선에 어떤 도움을 주나요?",
+    5: "슛 릴리스 순간 손목 스냅(Goose Neck)을 부드럽게 꺾어주었을 때 공의 백스핀(역회전)은 어떻게 나타났나요?",
+    6: "미들슛 4대 평가기준 중 오늘 본인이 가장 자신 있게 성공한 동작과 더 보완이 필요한 동작은 무엇인가요?",
+    7: "레이업슛을 시도할 때 1-2 스텝을 리듬감 있게 밟았을 때와 스텝이 꼬였을 때 어떤 차이가 느껴졌나요?",
+    8: "레이업슛 시 림을 직접 노리는 것보다 백보드 사각형 상단 모서리를 겨냥할 때 슛 성공률이 높아지는 이유는 무엇일까요?",
+    9: "레이업 점프 시 안쪽 다리 무릎을 가슴 높이로 힘차게 차올리는 동작이 수직 체공 시간 확보에 어떤 도움이 되었나요?",
+    10: "드리블-캐치-스텝-점프까지 끊김 없이 유기적으로 연결하기 위해 가장 신경 써야 할 타이밍은 언제였나요?",
+    11: "골밑 돌파 레이업슛을 시도할 때 수비수와의 거리나 착지 안정성을 위해 개선하고 싶은 점은 무엇인가요?",
+    12: "수비수의 위치에 따라 외곽 미들 점프슛과 돌파 레이업슛 중 어떤 선택이 더 유리할까요?",
+    13: "동료의 슛 자세를 관찰하고 피드백을 주고받으면서 새롭게 발견한 나의 슛 습관이나 개선점은 무엇인가요?",
+    14: "실전 슈팅 연습이나 별빛 버저비터 게임을 진행하며 집중력과 자세 일관성을 유지하기 위해 어떤 노력을 했나요?",
+    15: "3:3 미니 게임 중 찬스가 났을 때 배운 슛 폼을 침착하게 유지하며 슛을 시도할 수 있었나요?",
+    16: "오늘 경기에서 팀원과의 패스 연결 후 이어진 슛 찬스에서 가장 기억에 남는 순간은 무엇인가요?",
+    17: "1차시부터 17차시까지 농구 수업을 거치며 나의 슛 자세와 체육 수업 태도에서 가장 크게 성장한 부분은 무엇인가요?"
+  };
+  // 체험용 예시 학급 (실제 학생 아님)
+  const CLASS_NAME = "체험반";
+  const NAMES = ["가온", "나래", "나", "다온", "도윤", "라희", "별빛이", "서준", "아린", "유하", "지후", "해온"];
+  const ME = 3, STAR = 7;
+  const nm = n => n === "T" ? "선생님" : `${n}번 ${NAMES[n - 1]}`;
+  const OTHER_CLASSES = [
+    { name: "예시 1반", students: 12, fb: 41, stars: 96 },
+    { name: "예시 2반", students: 12, fb: 37, stars: 84 },
+    { name: "예시 3반", students: 12, fb: 33, stars: 71 }
+  ];
+  const POOL = {
+    middle: ["무릎 반동은 좋은데 타점이 조금 낮아.", "팔로우 스로우를 끝까지 남겨서 방향이 좋았어.", "손목 스냅이 살아서 공이 예쁘게 돌았어.", "팔 힘으로만 던지는 것 같아. 무릎을 먼저 굽혀 봐."],
+    layup: ["1-2 스텝 리듬이 정확했어.", "백보드 사각형 모서리를 잘 맞혔어.", "무릎을 더 높이 차올리면 더 높이 뜰 것 같아.", "캐치하고 멈칫해서 연결이 끊겼어."]
+  };
+  const SEED_ANSWERS = {
+    1: "팔을 끝까지 뻗고 있으면 공이 림 쪽으로 똑바로 가는 것 같았다.",
+    2: "팔로우 스로우를 하니까 공이 덜 휘고 포물선이 높아졌다.",
+    4: "팔을 바로 내리면 공이 옆으로 빠졌는데 끝까지 뻗으니 방향이 일정했다.",
+    5: "손이 림을 가리키고 있으면 공도 그쪽으로 가서 방향을 잡는 데 도움이 된다.",
+    6: "포물선이 높아져서 림에 부드럽게 들어갔다.",
+    8: "팔을 끝까지 뻗으면 백스핀이 생겨서 림에 맞아도 들어갈 때가 있었다.",
+    9: "슛 라인이 고정돼서 매번 비슷한 방향으로 날아갔다.",
+    11: "던진 뒤 팔 모양을 유지하니까 내 슛이 어디로 빗나갔는지 알 수 있었다."
+  };
+  const BAD_WORDS = ["바보", "멍청", "병신", "찐따", "꺼져", "못생", "닥쳐", "ㅅㅂ", "시발", "개못"];
+  const SAFE = ["시발점"];
+
+  function seedFeedbacks() {
+    const list = [
+      { id: "t1", from: "T", to: STAR, shot: "middle", stars: 2, checks: ["bad","good","bad","good"], time: "10:12", session: 4, text: "타점 좋습니다. 오늘은 팔로우 스로우를 2초 유지하는 것 하나만 목표로 해 봅시다." },
+      { id: "s1", from: 12, to: STAR, shot: "middle", stars: 2, checks: ["good","good","bad","good"], time: "10:08", session: 4, text: "릴리스 타점이 높아서 공이 예쁘게 떨어졌어. 그런데 쏜 다음 팔이 바로 내려와서 방향이 흔들려. 손을 조금 더 남겨 봐." },
+      { id: "s2", from: 5, to: STAR, shot: "middle", stars: 3, checks: ["bad","good","bad","good"], time: "10:05", session: 4, text: "손목 스냅은 좋은데 무릎을 거의 안 굽혀서 팔 힘으로만 던지는 것 같아. 무릎을 먼저 굽히고 쏘면 덜 힘들 거야." },
+      { id: "s3", from: 9, to: STAR, shot: "layup", stars: 2, checks: ["good","bad","bad","good"], time: "10:21", session: 4, text: "스텝은 정확했는데 공이 백보드 사각형 위쪽에 안 닿고 림에 바로 부딪혔어. 사각형 모서리를 보고 올려 봐." },
+      { id: "s4", from: 8, to: STAR, shot: "layup", stars: 3, checks: ["good","good","bad","good"], time: "10:19", session: 4, text: "연결이 부드러워. 마지막 점프 때 무릎을 더 높게 차올리면 체공 시간이 길어질 것 같아." }
+    ];
+    // 다른 학생들의 피드백 (학급별빛현황 숫자를 채우는 예시)
+    let k = 0;
+    for (let i = 1; i <= 12; i++) {
+      if (i === STAR) continue;
+      const cnt = (i * 7) % 4 + 1;
+      for (let j = 0; j < cnt; j++) {
+        let from = ((i + j * 5 + 2) % 12) + 1; if (from === i) from = (from % 12) + 1;
+        const shot = (i + j) % 2 ? "layup" : "middle";
+        const checks = [0,1,2,3].map(c => ((i + j + c) % 3 === 0 ? "bad" : "good"));
+        list.push({ id: "b" + (k++), from, to: i, shot, stars: ((i + j) % 3) + 1, checks, time: `10:${String(10 + ((i * 3 + j * 7) % 40)).padStart(2, "0")}`, session: j % 2 ? 3 : 4, text: POOL[shot][(i + j) % 4], rewarded: (i + j) % 3 === 0 });
+      }
+    }
+    return list;
+  }
+  const fresh = () => ({
+    mode: "observer",
+    session: 4,
+    q: Object.assign({}, QUESTIONS),
+    answers: { 4: Object.assign({}, SEED_ANSWERS) },
+    fbs: seedFeedbacks(),
+    // 관찰자
+    oShot: "middle", checks: ["good","good","good","good"], stars: 3, text: "", done: false, blocked: false, lastSent: null,
+    // 수행자
+    pShot: "middle", pAll: false, ai: { middle: "idle", layup: "idle" }, ansOpen: false, ansText: "", ansMsg: "", ansErr: "",
+    // 학급별빛현황
+    ovCls: null, ovQ: "", ovDetail: null,
+    // 관제센터
+    tTab: "question", tSel: 4, tSaved: 0, tf: { to: STAR, shot: "middle", checks: ["none","none","none","none"], stars: 3, text: "", msg: "", err: "" }
+  });
+  let state = fresh();
+  let fbSeq = 0;
+  const lab = document.getElementById("lab");
+  const hint = document.getElementById("try-hint");
+  const HINTS = {
+    observer: "<b>인지적 주도성</b> · 4대 기준마다 성공·보완필요를 판단하고 이유를 직접 써요. 예시 문구는 눌러서 넣을 수 없게 해 두어 학생이 자기 말로 쓰게 했어요. 미들슛과 레이업슛 모두 해 볼 수 있어요.",
+    performer: "<b>사회적·관계적 · 행동적·전략적 주도성</b> · 오늘의 질문에 답하고, 도움이 된 피드백에 보답 별을 보내고, 종합 분석을 보며 다음 목표를 정해요. 체험의 종합 분석은 앱에 들어 있는 기본 분석 규칙으로 계산하고, 실제 수업에서는 AI가 코멘트까지 읽어 분석해요.",
+    overview: "<b>사회적·관계적 주도성</b> · 내가 받은 별, 보낸 피드백으로 받은 보답 별이 학급 별빛으로 모여요. 관찰자 화면에서 피드백을 보내면 체험반의 별과 순위가 바로 바뀌어요.",
+    teacher: "<b>교사의 자리</b> · 교사는 자세를 직접 고쳐 주기도 하지만 차시별 오늘의 질문을 설계하고, 미제출 학생을 확인하고, 필요한 곳에 교사 피드백과 별을 더해요. 실제 관제센터는 교사 구글 계정으로만 열려요."
+  };
+  const starRow = (n, of = 3) => Array.from({ length: of }, (_, i) => `<span class="${i < n ? "on" : ""}">${IC.star}</span>`).join("");
+  const fbsTo = (to, shot) => state.fbs.filter(f => f.to === to && (!shot || f.shot === shot));
+  function studentStats(n) {
+    const mine = fbsTo(n);
+    const middle = mine.filter(f => f.shot === "middle").reduce((a, f) => a + f.stars, 0);
+    const layup = mine.filter(f => f.shot === "layup").reduce((a, f) => a + f.stars, 0);
+    const thanks = state.fbs.filter(f => f.from === n && f.rewarded).length;
+    const peer = mine.filter(f => f.from !== "T").reduce((a, f) => a + f.stars, 0);
+    const teacher = mine.filter(f => f.from === "T").reduce((a, f) => a + f.stars, 0);
+    return { middle, layup, thanks, peer, teacher, total: middle + layup + thanks, count: mine.length };
+  }
+  function cleanBad(t) {
+    let s = t.replace(/\s+/g, "");
+    SAFE.forEach(w => { s = s.split(w).join(""); });
+    return BAD_WORDS.some(w => s.includes(w));
+  }
+  function brand() { return `<div class="brand"><b>슛타워즈: 코트 위의 역습</b><span>체험용 예시 학급</span></div>`; }
+
+  // ----- ① 관찰자 -----
+  function observer() {
+    const shot = state.oShot, crit = CRIT[shot];
+    if (state.blocked) return brand() + `
+      <div class="warn" role="alertdialog" aria-label="클린봇 안전 알림">
+        <div class="row" style="gap:10px;color:var(--r400)">${IC.shieldAlert}<h4>클린봇(CleanBot) 안전 알림</h4></div>
+        <div class="msg">친구를 깎아내리거나 상처 줄 수 있는 표현이 들어 있어요. 이 표현으로는 피드백을 보낼 수 없어요.</div>
+        <div class="pledge">• 슛타워즈 코트는 서로 칭찬하고 함께 성장하는 배움의 공간입니다.<br>• 친구의 슛 자세(하체 반동, 릴리스 타점, 팔로우 스로우 등)에 대해 <b style="color:var(--s200)">힘이 되는 응원과 구체적인 피드백</b>으로 다시 작성해주세요.</div>
+        <button type="button" data-act="unblock">다시 작성하기</button>
+      </div>`;
+    if (state.done) return brand() + `
+      <div class="done">
+        <div class="ic">${IC.spark}</div>
+        <span class="chip amber" style="border-radius:999px">${state.lastSent.session}차시 피드백</span>
+        <h3>별빛 피드백이 성공적으로 전송되었습니다!</h3>
+        <p><strong>별빛이</strong> 친구에게 <em>[${state.lastSent.session}차시 ${SHOT[state.lastSent.shot]}]</em> 별 ${state.lastSent.stars}개와 관찰 코멘트가 안전하게 저장되었습니다.</p>
+        <div class="btns">
+          <button class="primary" type="button" data-act="toPerformer">별빛이가 되어 받은 피드백 보기 →</button>
+          <button class="ghostbtn" type="button" data-act="again">한 번 더 관찰하기</button>
+          <button class="ghostbtn" type="button" data-act="toOverview">학급별빛현황에서 별 확인하기</button>
+        </div>
+      </div>`;
+    const ex = EXAMPLES[shot];
+    return brand() + `
+      <div class="row xs"><span class="muted">관찰자:</span><span class="chip sky">3번 나</span><span class="dim">→</span><span class="muted">수행자:</span><span class="chip amber">7번 별빛이</span></div>
+      <div class="bar"><span class="row"><span class="cal">${IC.cal}</span><span class="muted">현재 수업 차시:</span><span class="sess">${state.session}차시</span></span><span class="xxs dim">선생님 지정 차시</span></div>
+      <div class="shots">
+        <button type="button" class="shot ${shot === "middle" ? "on-mid" : ""}" data-oshot="middle" aria-pressed="${shot === "middle"}">🏀 미들슛</button>
+        <button type="button" class="shot ${shot === "layup" ? "on-lay" : ""}" data-oshot="layup" aria-pressed="${shot === "layup"}">🏃‍♂️ 레이업슛</button>
+      </div>
+      <form class="card" id="obs-form">
+        <div class="sec">
+          <div class="between"><span class="lbl"><span class="dot ${shot === "layup" ? "lay" : ""}"></span>[${SHOT_ICON[shot]} ${SHOT[shot]}] 4대 평가기준 관찰</span><span class="xxs muted">성공 여부를 버튼으로 탭하세요</span></div>
+          ${crit.map((c, i) => `
+            <div class="crit">
+              <div class="row"><span class="num">${i + 1}</span><span class="nm">${c.name}</span></div>
+              <p>${c.text}</p>
+              <div class="tg">
+                <button type="button" class="good ${state.checks[i] === "good" ? "on" : ""}" data-chk="${i}" data-v="good" aria-pressed="${state.checks[i] === "good"}">${IC.check}성공</button>
+                <button type="button" class="bad ${state.checks[i] === "bad" ? "on" : ""}" data-chk="${i}" data-v="bad" aria-pressed="${state.checks[i] === "bad"}">${IC.alert}보완필요</button>
+              </div>
+            </div>`).join("")}
+        </div>
+        <div class="sec">
+          <div class="between"><span class="lbl"><span style="color:var(--a400)">${IC.star}</span>부여할 별의 개수 (1 ~ 3개)</span><span style="color:var(--a400);font-weight:800;font-size:13px">★ ${state.stars}개 선택됨</span></div>
+          <div class="stars3">${[1,2,3].map(v => `<button type="button" data-star="${v}" class="${state.stars === v ? "on" : ""}" aria-pressed="${state.stars === v}"><span class="ss">${Array(v).fill(IC.star).join("")}</span><span>${["노력해요 (1개)","좋아요 (2개)","완벽해요 (3개)"][v-1]}</span></button>`).join("")}</div>
+        </div>
+        <div class="sec">
+          <div class="between"><label class="lbl" for="cmt"><span style="color:var(--a400)">${IC.bulb}</span>관찰 코멘트 직접 작성</label><span class="xxs muted">솔직하고 건설적인 조언</span></div>
+          <div class="ex">
+            <div class="between"><span class="t">${IC.bulb}작성 참고 예시 (${SHOT[shot]})</span><span class="tag">예시 참고용 • 직접 작성</span></div>
+            ${ex.map(e => `<div class="it"><b>•</b><span>${e}</span></div>`).join("")}
+            <span class="tiny muted">* 위 예시를 참고하여 친구의 장점이나 보완할 점을 아래 입력창에 <b style="color:var(--s300)">직접 키보드로 작성</b>해주세요.</span>
+          </div>
+          <textarea id="cmt" rows="3" placeholder="친구의 자세에서 눈에 띈 장점이나 고쳤으면 하는 점을 직접 적어주세요. (예: 슛 직전 무릎을 잘 굽혔는데 타점이 조금 낮았어!)">${esc(state.text)}</textarea>
+          <div class="clean"><span class="ok">${IC.shield}클린봇(CleanBot) 안전 필터 가동 중</span><span class="tiny dim">욕설 및 성적 비하 표현 자동 제재</span></div>
+        </div>
+        <button type="submit" class="primary">${IC.send}별빛이 친구에게 [${state.session}차시] 별빛 피드백 보내기</button>
+      </form>`;
+  }
+
+  // ----- ② 수행자 -----
+  function fbCard(f, opts = {}) {
+    const crit = CRIT[f.shot];
+    const rewardable = opts.reward && f.from !== "T";
+    return `<div class="fb ${f.from === "T" ? "teacher" : ""} ${f.mine ? "new" : ""}">
+      <div class="between">
+        <div class="row"><span class="s">${f.session}차시</span>${f.from === "T" ? `<span class="who t">교사 지도</span>` : `<span class="who">${esc(nm(f.from))}</span>`}${opts.shotChip ? `<span class="tiny" style="color:var(--s400)">${SHOT[f.shot]}</span>` : `<span class="xxs dim">10/27 ${f.time}</span>`}${f.mine ? `<span class="tiny" style="color:var(--a400);font-weight:700">방금 도착</span>` : ""}</div>
+        <div class="rate" aria-label="별 ${f.stars}개">${starRow(f.stars)}</div>
+      </div>
+      <div class="cg">${crit.map((c, i) => { const v = f.checks[i]; return `<div class="${v === "good" ? "g" : v === "bad" ? "b" : "n"}"><span>${c.name}</span><b>${v === "good" ? "성공" : v === "bad" ? "보완필요" : "-"}</b></div>`; }).join("")}</div>
+      <p class="cm">${esc(f.text) || "(별점 평가만 남김)"}</p>
+      ${opts.reward ? `<div class="foot">
+        <span class="xxs muted">${f.from === "T" ? "선생님 피드백" : "친구의 관찰 조언"}</span>
+        ${!rewardable ? "" : f.rewarded
+          ? `<button type="button" class="rw done" data-rw="${f.id}" title="한 번 더 누르면 보답을 취소해요">${IC.heart}보답 별(1개) 전달 완료</button>`
+          : `<button type="button" class="rw" data-rw="${f.id}">${IC.star}도움이 됐어요! 보답 별 1개 쏘기</button>`}
+      </div>` : ""}
+    </div>`;
+  }
+  // 앱의 기본 분석 규칙(clientAiEvaluation.ts)을 그대로 옮김
+  function evaluate(list, shot) {
+    const crit = CRIT[shot];
+    const total = list.length;
+    const avg = total ? list.reduce((a, f) => a + f.stars, 0) / total : 2;
+    const grade = avg >= 2.5 ? "우수" : avg >= 1.8 ? "보통" : "노력요함";
+    const strengths = [], weaknesses = [], tips = [];
+    const rows = crit.map((c, i) => {
+      const g = list.filter(f => f.checks[i] === "good").length;
+      const b = list.filter(f => f.checks[i] === "bad").length;
+      if (g + b === 0) return { c, i, st: "판단보류", d: `아직 동료들의 구체적인 '${c.name}' 항목 평가가 부족합니다. 집중 관찰을 요청해보세요.` };
+      if (g >= b) { strengths.push(`${c.name} (${c.focus})`); return { c, i, st: "잘함", d: `동료 ${g}명이 '${c.name}'(${c.focus}) 동작이 매우 안정적이고 자연스럽다고 평가했습니다.` }; }
+      weaknesses.push(`${c.name} 보완 요망`); tips.push(`[${c.name}] ${c.text} (${c.focus}에 신경 쓰기)`);
+      return { c, i, st: "보완필요", d: `동료 ${b}명이 '${c.name}' 동작에서 보완이 필요하다고 보았습니다. (${c.mistake})` };
+    });
+    if (!strengths.length) strengths.push("슛을 시도하는 자신감과 적극적인 슛 릴리스 시도");
+    if (!weaknesses.length) weaknesses.push("실전 수비수를 마주했을 때의 일정한 슛 릴리스 타이밍 유지");
+    if (!tips.length) tips.push(FALLBACK_TIP[shot]);
+    return { total, avg, grade, rows, strengths, weaknesses, tips };
+  }
+  function aiPanel(shot) {
+    const st = state.ai[shot];
+    const all = fbsTo(STAR, shot);
+    let body;
+    if (st === "loading") body = `<div style="text-align:center;padding-bottom:16px"><div class="spin"></div><p class="xs" style="margin:0;color:var(--a300);font-weight:600">동료들의 관찰 피드백을 공식 기준으로 종합 분석하고 있습니다...</p><p class="xxs dim" style="margin:4px 0 0">잠시만 기다려주세요.</p></div>`;
+    else if (st === "done") {
+      const r = evaluate(all, shot);
+      const gc = r.grade === "우수" ? "g" : r.grade === "보통" ? "m" : "l";
+      body = `
+        <div class="grade ${gc}"><span class="row">${IC.award}자세 종합 평가:</span><span>${r.grade}</span></div>
+        <div class="box"><b>총평</b>별빛이 학생의 ${SHOT[shot]} 분석 결과: 총 ${r.total}건의 동료 및 교사 피드백(평균 ${r.avg.toFixed(1)}성)을 종합 분석한 코칭 리포트입니다.</div>
+        <div style="display:flex;flex-direction:column;gap:6px"><span class="xs" style="font-weight:700;color:var(--s300)">공식 4대 평가기준 판정 결과</span>
+          ${r.rows.map(x => `<div class="mx"><div class="between"><span style="font-weight:600;color:var(--s200)">기준 ${x.i + 1}: ${x.c.name}</span><span class="st ${x.st === "잘함" ? "g" : x.st === "보완필요" ? "b" : "h"}">${x.st}</span></div><p>${x.d}</p></div>`).join("")}
+        </div>
+        <div class="lst g"><p>${IC.check}잘하고 있는 점</p><ul>${r.strengths.map(s => `<li>${s}</li>`).join("")}</ul></div>
+        <div class="lst b"><p>${IC.alert}반드시 보완해야 할 아쉬운 점</p><ul>${r.weaknesses.map(s => `<li>${s}</li>`).join("")}</ul></div>
+        <div class="lst d"><p>${IC.flame}다음 연습 원포인트 교정 드릴</p><ul>${r.tips.map(s => `<li>${s}</li>`).join("")}</ul></div>`;
+    } else body = `<div style="text-align:center;padding:14px 0 6px;color:var(--s400)"><span style="color:var(--s600);display:inline-block">${IC.bot.replace('class="i"', 'class="i" style="width:30px;height:30px"')}</span><p class="xs" style="margin:6px 0 2px;color:var(--s300);font-weight:600">아직 AI 종합 분석이 진행되지 않았습니다.</p><p class="xxs dim" style="margin:0 0 12px">[종합 분석 요청] 버튼을 누르면 친구들의 피드백을 엄격하게 종합하여 맞춤 코칭을 제공합니다.</p><button type="button" class="req" data-act="ai">${IC.spark}지금 종합 피드백 요청하기</button></div>`;
+    return `<div class="ai">
+      <div class="between">
+        <div class="row" style="gap:8px"><span class="bot">${IC.bot}</span><div><div style="font-weight:700;font-size:14px;color:#fff">AI 종합 피드백</div><div class="tiny muted">기준 기반 정밀 분석</div></div></div>
+        <button type="button" class="req" data-act="ai">${st === "loading" ? "분석 중..." : st === "done" ? "재분석 요청" : "종합 분석 요청"}</button>
+      </div>
+      <div class="coach"><strong>코치 지침:</strong> 무조건 칭찬만 하지 않고, 공식 4대 기준에 따라 아쉬운 부분과 잘한 부분을 엄격하고 객관적으로 지적합니다.</div>
+      ${body}
+    </div>`;
+  }
+  function performer() {
+    const shot = state.pShot, s = state.session;
+    const all = fbsTo(STAR, shot);
+    const list = state.pAll ? all : all.filter(f => f.session === s);
+    const stars = list.reduce((a, f) => a + f.stars, 0);
+    const q = (state.q[s] || "").trim();
+    const myAns = (state.answers[s] || {})[STAR];
+    return brand() + `
+      <div class="between">
+        <div class="row"><span class="chip white">7번 별빛이</span><span class="chip amber">${SHOT[shot]}</span></div>
+        <div class="row xs"><span class="row" style="gap:4px;padding:4px 10px;border-radius:12px;background:var(--s900);border:1px solid var(--s800);color:var(--s300)"><span style="color:var(--a400)">${IC.star}</span>${state.pAll ? "누적 총 별: " : `${s}차시 별: `}<strong style="color:var(--a300);font-size:14px">${stars}</strong>개</span><span class="muted">피드백 <strong style="color:#fff">${list.length}</strong>건</span></div>
+      </div>
+      <div class="seg2">
+        <button type="button" class="shot ${shot === "middle" ? "on-mid" : ""}" data-pshot="middle" aria-pressed="${shot === "middle"}">🏀 미들슛</button>
+        <button type="button" class="shot ${shot === "layup" ? "on-lay" : ""}" data-pshot="layup" aria-pressed="${shot === "layup"}">🏃‍♂️ 레이업슛</button>
+      </div>
+      ${q ? `<div class="q"><span class="qi">${IC.quote}</span><div style="flex:1;min-width:0"><span class="qt">오늘의 질문</span><b>${esc(q)}</b>
+        <div style="margin-top:8px"><button type="button" data-act="ansToggle" style="font-size:12px;font-weight:700;color:var(--s950);background:var(--a300);border:1px solid rgba(245,158,11,.3);padding:4px 10px;border-radius:8px">${myAns ? "내 답변 확인/수정" : "답변 작성하기"} →</button></div></div></div>` : ""}
+      ${state.ansMsg ? `<div class="okmsg">${IC.check}${state.ansMsg}</div>` : ""}
+      ${q && state.ansOpen ? `<div class="ans">
+        <label class="lbl" for="ans">${IC.quote}${s}차시 오늘의 질문 · 나의 생각</label>
+        <textarea id="ans" rows="3" placeholder="정답이 아니라 내 생각을 적어 보세요.">${esc(state.ansText)}</textarea>
+        ${state.ansErr ? `<div class="errmsg">${state.ansErr}</div>` : ""}
+        <button type="button" class="smallbtn" data-act="ansSubmit" style="align-self:flex-end">답변 제출하기</button>
+      </div>` : ""}
+      ${all.some(f => f.mine) ? "" : `<div class="bar" style="color:var(--a300)">${IC.alert}<span style="flex:1">아직 관찰자 피드백을 보내지 않았어요. 관찰자 모드에서 보내면 여기에 도착해요.</span></div>`}
+      <div class="between"><span class="h3"><span style="color:var(--a400)">${IC.star}</span>${state.pAll ? `전체 차시 누적 피드백 (${list.length}건)` : `선생님 지정 [${s}차시] 피드백 (${list.length}건)`}</span><span class="xxs muted">도움이 된 피드백에 별(1개)을 보답하세요!</span></div>
+      ${all.length && (state.pAll || list.length !== all.length) ? `<button type="button" class="linkbtn" data-act="pAll" style="align-self:flex-start">${state.pAll ? `${s}차시 피드백만 보기` : `누적 피드백 전체 모아보기 (${all.length}건)`}</button>` : ""}
+      ${list.length ? list.map(f => fbCard(f, { reward: true })).join("") : `<div class="empty">${s}차시에 받은 ${SHOT[shot]} 피드백이 아직 없습니다.</div>`}
+      ${aiPanel(shot)}`;
+  }
+
+  // ----- ③ 학급별빛현황 -----
+  function classList() {
+    const mineStars = NAMES.reduce((a, _, i) => a + studentStats(i + 1).total, 0);
+    const list = OTHER_CLASSES.map(c => ({ ...c })).concat([{ name: CLASS_NAME, students: 12, fb: state.fbs.length, stars: mineStars, mine: true }]);
+    list.forEach(c => { c.avg = (c.stars / c.students).toFixed(1); });
+    return list.sort((a, b) => b.stars - a.stars);
+  }
+  function overview() {
+    if (state.ovCls) return brand() + overviewClass();
+    const list = classList();
+    const max = Math.max(...list.map(c => c.stars), 1);
+    const school = list.reduce((a, c) => a + c.stars, 0);
+    return brand() + `
+      <span class="modetag indigo-tag">${IC.star}전체확인 모드 • 학급별빛현황</span>
+      <div class="row" style="gap:8px"><h3 class="ttl">학급별빛현황</h3><span class="chip amber" style="border-radius:12px">전교 누적 ★ ${school}개 별빛</span></div>
+      <p class="xs muted" style="margin:0">원하는 학급 카드를 누르면 해당 학급의 학생별 별빛 현황과 상세 피드백을 확인할 수 있습니다.</p>
+      <div class="board">
+        <div class="row" style="gap:8px"><span class="tro">${IC.trophy}</span><b style="color:#fff;font-size:14px">학급별 별빛 랭킹 대항전</b><span class="live">실시간 집계</span></div>
+        ${list.map((c, i) => `
+          <button type="button" class="cls ${i === 0 ? "first" : ""} ${c.mine ? "mine" : ""}" ${c.mine ? `data-act="openCls"` : `data-act="otherCls"`}>
+            <div class="between" style="flex-wrap:nowrap">
+              <div class="row" style="gap:8px;flex-wrap:nowrap"><span class="rk ${i < 3 ? "r" + (i + 1) : ""}">${i + 1}위</span><div><h4>${c.name}${c.mine ? ` <span class="tiny" style="color:#a5b4fc">(체험 중)</span>` : ""}</h4><span class="xxs muted">학생 ${c.students}명 • 피드백 ${c.fb}건</span></div></div>
+              <div style="text-align:right"><div class="row" style="gap:3px;justify-content:flex-end;color:var(--a400)">${IC.star}<span class="big">${c.stars}</span><span class="xs muted" style="font-weight:700">개</span></div><span class="tiny muted">평균 ${c.avg}개</span></div>
+            </div>
+            <div class="prog"><i style="width:${Math.max(Math.round(c.stars / max * 100), 6)}%"></i></div>
+            <div class="foot2"><span>순위: <strong style="color:var(--s200)">${i + 1}위</strong></span><b>학생 목록 보기${IC.chev}</b></div>
+          </button>`).join("")}
+      </div>
+      ${state.ovNote ? `<div class="bar xs" style="color:var(--s300)">${IC.alert}<span style="flex:1">${state.ovNote}</span></div>` : ""}`;
+  }
+  function studentGrid() {
+    const q = state.ovQ.trim();
+    const items = NAMES.map((n, i) => i + 1).filter(n => !q || NAMES[n - 1].includes(q) || String(n) === q);
+    if (!items.length) return `<div class="empty">검색 조건에 일치하는 학생이 없습니다.</div>`;
+    return `<div class="sgrid">${items.map(n => { const st = studentStats(n); return `
+      <button type="button" class="stu ${n === STAR || n === ME ? "hl" : ""}" data-stu="${n}">
+        <div class="between" style="flex-wrap:nowrap"><span class="row" style="gap:6px;flex-wrap:nowrap;min-width:0"><span class="no">${n}</span><span class="nm">${NAMES[n - 1]}</span></span><span class="pill">${IC.star}${st.total}</span></div>
+        <div class="meta"><span>피드백 ${st.count}건</span><span>M${st.middle} • L${st.layup}</span></div>
+      </button>`; }).join("")}</div>`;
+  }
+  function overviewClass() {
+    const list = classList();
+    const rank = list.findIndex(c => c.mine) + 1;
+    const me = list.find(c => c.mine);
+    return `
+      <div class="chead">
+        <div class="row" style="gap:8px;flex-wrap:nowrap">
+          <button type="button" class="linkbtn" data-act="ovBack">${IC.back}전체 랭킹</button>
+          <div style="min-width:0"><div class="row" style="gap:6px"><b style="color:#fff;font-size:15px">${CLASS_NAME} 학생 별빛 현황</b><span class="tiny" style="font-weight:900;padding:1px 6px;border-radius:4px;background:var(--a400);color:var(--s950)">전교 ${rank}위</span></div>
+          <span class="xxs muted">총 12명 • 누적 ★ ${me.stars}개 (평균 ${me.avg}개)</span></div>
+        </div>
+      </div>
+      <div class="srch">${IC.search}<input id="ovq" type="text" value="${esc(state.ovQ)}" placeholder="학생 이름 또는 번호 검색 (예: 7, 별빛)"></div>
+      <div id="ovgrid">${studentGrid()}</div>
+      <p class="xxs dim" style="margin:0">보라색 테두리: 체험에 쓰는 3번 나(관찰자)와 7번 별빛이(수행자)</p>
+      ${state.ovDetail ? detailSheet(state.ovDetail) : ""}`;
+  }
+  function detailSheet(n) {
+    const st = studentStats(n);
+    const list = fbsTo(n);
+    return `<div class="sheet" role="dialog" aria-label="${nm(n)} 상세">
+      <div class="between"><b style="color:#fff;font-size:16px">${nm(n)} <span style="color:var(--a300)">★ ${st.total}</span></b><button type="button" class="linkbtn" data-act="closeDetail">${IC.x}닫기</button></div>
+      <div class="tri">
+        <div><span>친구 관찰 별</span><strong style="color:var(--sky300)">★ ${st.peer}</strong></div>
+        <div><span>교사 지도 별</span><strong style="color:var(--r300)">★ ${st.teacher}</strong></div>
+        <div><span>보답 감사 별</span><strong style="color:var(--a300)">★ ${st.thanks}</strong></div>
+      </div>
+      ${st.thanks ? `<div class="bar xs" style="color:var(--a300)">${IC.heart}<span style="flex:1">친구가 보답 별(1개)을 ${st.thanks}번 선물했습니다. 도움이 되는 피드백을 썼다는 뜻이에요.</span></div>` : ""}
+      <span class="xs" style="font-weight:700;color:var(--s300)">받은 피드백 ${list.length}건</span>
+      ${list.length ? list.map(f => fbCard(f, { shotChip: true })).join("") : `<div class="empty">아직 받은 피드백이 없습니다.</div>`}
+    </div>`;
+  }
+
+  // ----- ④ 별빛 관제센터 -----
+  function teacher() {
+    const tabs = [["classes", IC.layers, "학급 관리"], ["roster", IC.sheet, "학생 명렬표"], ["question", IC.quote, "오늘의 질문"], ["feedback", IC.award, "교사 피드백&별"], ["settings", IC.cloud, "데이터 백업·가져오기"]];
+    let body = "";
+    if (state.tTab === "question") body = teacherQuestion();
+    else if (state.tTab === "feedback") body = teacherFeedback();
+    else body = `<div class="closed">${{
+      classes: "실제 앱에서는 이 탭에서 학급을 만들고, 학급마다 <b>입장 비밀번호</b>를 걸 수 있어요.",
+      roster: "실제 앱에서는 이 탭에 <b>엑셀 명렬표를 복사해 붙여 넣어</b> 학급 명단을 등록해요.",
+      settings: "실제 앱에서는 이 탭에서 <b>모든 기록을 백업 파일로 내려받고</b> 다시 가져올 수 있어요."
+    }[state.tTab]}<br><br>체험판에는 실제 명단과 기록이 없어서 이 탭은 열지 않아요. <b>오늘의 질문</b>과 <b>교사 피드백&amp;별</b>을 눌러 보세요.</div>`;
+    return brand() + `
+      <span class="modetag rose-tag">${IC.shieldT}교사 모드</span>
+      <h3 class="ttl">별빛 관제센터 (체육 교사용)</h3>
+      <p class="xs muted" style="margin:-6px 0 0">학생 슛 피드백 및 별(1~3개) 부여, 학급별 엑셀 명렬표 등록을 관리합니다.</p>
+      <div class="ttabs" role="tablist">${tabs.map(([id, ic, label]) => `<button type="button" role="tab" aria-selected="${state.tTab === id}" class="${id === "question" || id === "settings" ? "q" : ""} ${state.tTab === id ? "on" : ""} ${id === "settings" ? "wide" : ""}" data-ttab="${id}">${ic}${label}</button>`).join("")}</div>
+      ${body}`;
+  }
+  function teacherQuestion() {
+    const n = state.tSel, cur = state.session;
+    const ans = state.answers[n] || {};
+    const done = Object.keys(ans).map(Number).sort((a, b) => a - b);
+    const missing = NAMES.map((_, i) => i + 1).filter(k => !ans[k]);
+    return `<div class="tcard">
+      <div class="tnote">질문을 등록할 학급을 선택하고 <strong style="color:#fff">1차시부터 17차시까지</strong> 원하는 질문을 입력해 두세요. 학급의 <strong>수업 차시를 변경하면 그 차시에 맞는 질문이 학생 수행자 화면에 자동으로 즉시 연동</strong>됩니다.</div>
+      <div class="field"><span>학급</span><div class="static">${CLASS_NAME} (체험용 예시 학급)</div></div>
+      <div class="field"><span>확인/수정할 수업 차시를 선택하세요</span>
+        <div class="sess-grid">${Array.from({ length: 17 }, (_, i) => i + 1).map(k => `<button type="button" data-tsel="${k}" class="${k === n ? "sel" : ""} ${k === cur ? "cur" : ""}" aria-pressed="${k === n}">${k}</button>`).join("")}</div>
+      </div>
+      <div class="between"><b style="color:#fff;font-size:14px">${CLASS_NAME} ${n}차시 질문</b><span class="xs muted">답변 제출: <strong style="color:var(--e400)">${done.length}명</strong> / 총 12명</span></div>
+      ${n === cur ? `<span class="curtag"><i></i>★ 현재 수업 차시 (학생 수행자 화면에 실시간 연동 중)</span>` : `<button type="button" class="tbtn" data-act="setSession">★ 이 차시(${n}차시)를 현재 수업 차시로 변경하기</button>`}
+      <textarea id="tq" rows="3" placeholder="${n}차시 질문을 입력하세요... (예: 오늘 배운 슛 자세에서 가장 중요한 핵심 포인트는 무엇인가요?)">${esc(state.q[n] || "")}</textarea>
+      <div class="between"><span class="xxs muted" style="flex:1;min-width:0">${(state.q[n] || "").trim() ? "질문 입력 후 [저장]을 누르면 즉시 클라우드에 영구 보존됩니다." : "질문이 비어있으면 학생 화면에 질문 카드가 나타나지 않습니다."}</span><button type="button" class="savebtn" data-act="saveQ">${state.tSaved === n ? "저장됨!" : "질문 저장"}</button></div>
+      <span class="xs" style="font-weight:700;color:var(--s300)">학생 답변</span>
+      ${done.length ? `<div class="alist">${done.map(k => `<div class="arow ${k === STAR ? "new" : ""}"><b>${nm(k)}</b>${esc(ans[k])}</div>`).join("")}</div>` : `<div class="empty">아직 제출된 답변이 없습니다.</div>`}
+      ${missing.length ? `<div class="miss"><b>미제출 ${missing.length}명</b> · ${missing.map(k => nm(k)).join(", ")}</div>` : `<div class="okmsg">${IC.check}모든 학생이 답변을 제출했습니다.</div>`}
+    </div>`;
+  }
+  function teacherFeedback() {
+    const tf = state.tf, crit = CRIT[tf.shot];
+    return `<div class="tcard">
+      <div class="field"><span>1. 학급 선택</span><div class="static">${CLASS_NAME}</div></div>
+      <div class="field"><label for="tf-to" style="font-size:12px;font-weight:700;color:var(--s300)">2. 지도할 대상 학생 선택</label>
+        <select id="tf-to">${NAMES.map((_, i) => `<option value="${i + 1}" ${tf.to === i + 1 ? "selected" : ""}>${nm(i + 1)}</option>`).join("")}</select></div>
+      <div class="field"><span>3. 수업 차시</span><div class="static">${state.session}차시 (현재 수업 차시)</div></div>
+      <div class="field"><span>4. 슛 유형</span>
+        <div class="seg2">
+          <button type="button" class="shot ${tf.shot === "middle" ? "on-mid" : ""}" data-tfshot="middle">🏀 미들슛</button>
+          <button type="button" class="shot ${tf.shot === "layup" ? "on-lay" : ""}" data-tfshot="layup">🏃‍♂️ 레이업슛</button>
+        </div></div>
+      <div class="field"><span>공식 4대 기준 판정 <span class="tiny dim" style="font-weight:400">(다시 누르면 선택 해제)</span></span>
+        ${crit.map((c, i) => `<div class="crit"><div class="row"><span class="num">${i + 1}</span><span class="nm">${c.name}</span></div>
+          <div class="tg">
+            <button type="button" class="good ${tf.checks[i] === "good" ? "on" : ""}" data-tfchk="${i}" data-v="good">${IC.check}성공</button>
+            <button type="button" class="bad ${tf.checks[i] === "bad" ? "on" : ""}" data-tfchk="${i}" data-v="bad">${IC.alert}보완필요</button>
+          </div></div>`).join("")}
+      </div>
+      <div class="field"><span>별 (1~3개)</span>
+        <div class="stars3">${[1,2,3].map(v => `<button type="button" data-tfstar="${v}" class="${tf.stars === v ? "on" : ""}"><span class="ss">${Array(v).fill(IC.star).join("")}</span><span>${v}개</span></button>`).join("")}</div></div>
+      <textarea id="tf-text" rows="3" placeholder="학생에게 전달할 전문적인 자세 교정 지도 코멘트를 입력하세요. (학생 피드백 목록에 [교사 지도] 배지로 표시됩니다)">${esc(tf.text)}</textarea>
+      ${tf.err ? `<div class="errmsg">${tf.err}</div>` : ""}
+      ${tf.msg ? `<div class="okmsg">${IC.check}${tf.msg}</div>` : ""}
+      <button type="button" class="rosebtn" data-act="tfSubmit">${IC.award}교사 지도 피드백 및 별 등록</button>
+    </div>`;
+  }
+
+  // ----- 그리기와 이벤트 -----
+  function setMode(m) {
+    if (m === "observer" && state.mode !== "observer") { state.done = false; state.blocked = false; }
+    state.mode = m;
+    document.querySelectorAll("[data-mode]").forEach(b => b.setAttribute("aria-selected", String(b.dataset.mode === m)));
+    render();
+  }
+  function goMode(m) { setMode(m); document.getElementById("try").scrollIntoView({ behavior: "smooth", block: "start" }); }
+  document.querySelectorAll("[data-mode]").forEach(b => b.addEventListener("click", () => setMode(b.dataset.mode)));
+  document.getElementById("reset").addEventListener("click", () => { state = fresh(); setMode("observer"); });
+  function render() {
+    lab.innerHTML = { observer, performer, overview, teacher }[state.mode]();
+    hint.innerHTML = HINTS[state.mode];
+  }
+  lab.addEventListener("click", e => {
+    const t = e.target.closest("button");
+    if (!t) return;
+    const d = t.dataset, tf = state.tf;
+    if (d.oshot) { if (state.oShot !== d.oshot) { state.oShot = d.oshot; state.checks = ["good","good","good","good"]; } render(); }
+    else if (d.chk !== undefined) { state.checks[+d.chk] = d.v; render(); }
+    else if (d.star) { state.stars = +d.star; render(); }
+    else if (d.pshot) { state.pShot = d.pshot; render(); }
+    else if (d.rw) { const f = state.fbs.find(x => x.id === d.rw); if (f) f.rewarded = !f.rewarded; render(); }
+    else if (d.stu) { state.ovDetail = +d.stu; render(); }
+    else if (d.ttab) { state.tTab = d.ttab; render(); }
+    else if (d.tsel) { state.tSel = +d.tsel; state.tSaved = 0; render(); }
+    else if (d.tfshot) { tf.shot = d.tfshot; tf.checks = ["none","none","none","none"]; render(); }
+    else if (d.tfchk !== undefined) { const i = +d.tfchk; tf.checks[i] = tf.checks[i] === d.v ? "none" : d.v; render(); }
+    else if (d.tfstar) { tf.stars = +d.tfstar; render(); }
+    else switch (d.act) {
+      case "unblock": state.blocked = false; render(); break;
+      case "again": state.done = false; state.text = ""; render(); break;
+      case "toPerformer": state.pShot = state.lastSent ? state.lastSent.shot : "middle"; state.pAll = false; goMode("performer"); break;
+      case "toOverview": state.ovCls = CLASS_NAME; state.ovDetail = null; goMode("overview"); break;
+      case "pAll": state.pAll = !state.pAll; render(); break;
+      case "ansToggle": state.ansOpen = !state.ansOpen; state.ansMsg = ""; state.ansErr = ""; if (state.ansOpen) state.ansText = (state.answers[state.session] || {})[STAR] || ""; render(); break;
+      case "ansSubmit": {
+        const v = (state.ansText || "").trim();
+        if (!v) { state.ansErr = "답변을 입력해 주세요."; render(); break; }
+        if (cleanBad(v)) { state.ansErr = "클린봇: 친구나 다른 사람을 깎아내리는 표현이 있어요. 바꿔서 다시 써 주세요."; render(); break; }
+        (state.answers[state.session] = state.answers[state.session] || {})[STAR] = v;
+        state.ansOpen = false; state.ansErr = ""; state.ansText = "";
+        state.ansMsg = "선생님의 오늘의 질문에 대한 답변이 성공적으로 제출되었습니다! 별빛 관제센터의 답변 목록에서도 확인해 보세요.";
+        render(); break;
+      }
+      case "ai": {
+        const shot = state.pShot;
+        if (state.ai[shot] === "loading") break;
+        state.ai[shot] = "loading"; render();
+        setTimeout(() => { state.ai[shot] = "done"; if (state.mode === "performer") render(); }, 1400);
+        break;
+      }
+      case "openCls": state.ovCls = CLASS_NAME; state.ovNote = ""; render(); break;
+      case "otherCls": state.ovNote = "체험판에서는 체험반의 학생 목록만 열어 볼 수 있어요."; render(); break;
+      case "ovBack": state.ovCls = null; state.ovDetail = null; state.ovQ = ""; render(); break;
+      case "closeDetail": state.ovDetail = null; render(); break;
+      case "setSession": state.session = state.tSel; render(); break;
+      case "saveQ": state.tSaved = state.tSel; render(); break;
+      case "tfSubmit": {
+        const v = tf.text.trim();
+        tf.msg = "";
+        if (cleanBad(v)) { tf.err = "클린봇: 부적절한 표현이 있어요."; render(); break; }
+        tf.err = "";
+        state.fbs.unshift({ id: "tf" + (++fbSeq), from: "T", to: tf.to, shot: tf.shot, stars: tf.stars, checks: tf.checks.slice(), time: "10:30", session: state.session, text: v });
+        if (tf.to === STAR) state.ai[tf.shot] = "idle";
+        tf.msg = `${nm(tf.to)} 학생에게 [${state.session}차시 ${SHOT[tf.shot]}] 교사 지도 피드백과 별 ${tf.stars}개가 등록되었습니다.${tf.to === STAR ? " 수행자 화면에서 확인해 보세요." : ""}`;
+        tf.text = ""; tf.checks = ["none","none","none","none"];
+        render(); break;
+      }
+    }
+  });
+  lab.addEventListener("submit", e => {
+    e.preventDefault();
+    if (cleanBad(state.text)) { state.blocked = true; render(); return; }
+    state.fbs.forEach(f => { delete f.mine; });
+    const fb = { id: "me" + (++fbSeq), mine: true, from: ME, to: STAR, shot: state.oShot, stars: state.stars, checks: state.checks.slice(), time: "10:15", session: state.session, text: state.text.trim() };
+    state.fbs.unshift(fb);
+    state.lastSent = fb; state.ai[fb.shot] = "idle";
+    state.done = true; state.text = ""; state.checks = ["good","good","good","good"]; render();
+  });
+  lab.addEventListener("input", e => {
+    const id = e.target.id;
+    if (id === "cmt") state.text = e.target.value;
+    else if (id === "ans") state.ansText = e.target.value;
+    else if (id === "tq") { state.q[state.tSel] = e.target.value; state.tSaved = 0; }
+    else if (id === "tf-text") state.tf.text = e.target.value;
+    else if (id === "ovq") { state.ovQ = e.target.value; const g = document.getElementById("ovgrid"); if (g) g.innerHTML = studentGrid(); }
+  });
+  lab.addEventListener("change", e => {
+    if (e.target.id === "tf-to") { state.tf.to = +e.target.value; state.tf.msg = ""; render(); }
+  });
+  render();
+})();
+</script>
+
+</body>
+</html>
